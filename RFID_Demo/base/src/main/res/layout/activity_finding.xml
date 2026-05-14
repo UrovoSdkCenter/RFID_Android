@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <!-- DataBinding 变量可以在这里定义 -->
+    </data>
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <!-- Tag Info Card -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/card_background"
+        android:orientation="vertical"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:layout_margin="5dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="2dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tag_info"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:textColor="@color/main_color"
+        android:layout_marginBottom="5dp" />
+
+    <!-- Tag Info：选择EPC + 输入框合并为一行 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="5dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingRight="4dp"
+            android:text="@string/select_epc"
+            android:textSize="14sp" />
+        <ImageButton
+            android:id="@+id/btn_epc_picker"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_arrow_down"
+            android:scaleType="fitCenter"
+            android:contentDescription="@string/select_epc" />
+        <EditText
+            android:id="@+id/epc_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="4dp"
+            android:textSize="14sp"
+            android:textColor="#333333"
+            android:background="#f0f0f0"
+            android:padding="2dp"
+            android:text="" />
+    </LinearLayout>
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginBottom="5dp"
+        android:layout_alignParentBottom="true">
+    <Button
+        android:id="@+id/btfind"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:background="@drawable/color_button_selector"
+        android:text="@string/finding"
+        android:textColor="@color/white"
+         />
+    </LinearLayout>
+    <com.rfid.base.utils.CircleProgress
+        android:id="@+id/circle_progress"
+        android:layout_width="260dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        app:antiAlias="true"
+        app:arcWidth="15dp"
+        app:bgArcColor="@android:color/darker_gray"
+        app:bgArcWidth="2dp"
+        app:dottedLineWidth="12dp"
+        app:foreEndColor="#F4F200"
+        app:foreStartColor="#FE6615"
+        app:hintSize="15dp"
+        app:maxValue="100"
+        app:startAngle="135"
+        app:sweepAngle="270"
+        app:textOffsetPercentInRadius="0.5"
+        app:unit=""
+        app:unitColor="@android:color/darker_gray"
+        app:unitSize="15dp"
+        app:value="0"
+        app:valueColor="#FFCC1E"
+        app:valueSize="80dp"
+        />
+
+
+</RelativeLayout>
+</layout>

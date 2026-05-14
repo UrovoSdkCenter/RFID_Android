@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <!-- DataBinding 变量可以在这里定义 -->
+    </data>
+
+<LinearLayout
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical" >
+
+
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="1px"
+		android:background="@color/gray1" />
+
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="1px"
+		android:background="@color/gray1" />
+	<LinearLayout
+		android:id="@+id/ll_filter_tag"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="5dp"
+		android:visibility="gone"
+		android:paddingLeft="10dp"
+		android:paddingRight="10dp"
+		android:layout_marginBottom="5dp">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/strfactory" />
+
+
+		<Spinner
+			android:id="@+id/spfactory"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:gravity="left"
+			android:layout_weight="1"
+			android:layout_gravity="center"
+			android:entries="@array/arrayfactory"
+			android:textSize="14sp"/>
+
+
+		<Button
+			android:id="@+id/Btfilter"
+			android:layout_width="wrap_content"
+			android:layout_height="35dp"
+			android:text="@string/strfilter"
+			android:textColor="@color/white"
+			android:background="@drawable/color_button_selector"
+			android:layout_marginRight="5dp" />
+	</LinearLayout>
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="1px"
+		android:background="@color/gray1" />
+
+	<LinearLayout
+        android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:paddingLeft="10dp"
+		android:paddingRight="10dp"
+		android:gravity="center_vertical" >
+
+
+
+
+		<LinearLayout
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			android:gravity="center_vertical"
+			android:paddingBottom="3dp"
+			android:paddingTop="3dp" >
+
+			<LinearLayout
+				android:layout_width="0dp"
+				android:layout_weight="1"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:gravity="center_vertical">
+				<CheckBox
+					android:id="@+id/cb_led"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Led"
+					android:textSize="16sp"
+					android:enabled="false"
+					android:textColor="@color/black" />
+
+			</LinearLayout>
+
+
+			<Button
+				android:id="@+id/BtInventory"
+				android:layout_width="0dp"
+				android:layout_height="35dp"
+				android:layout_marginLeft="5dp"
+				android:layout_marginRight="5dp"
+				android:layout_weight="3"
+				android:background="@drawable/color_button_selector"
+				android:text="@string/btInventory"
+				android:textColor="@color/white" />
+
+
+		</LinearLayout>
+		<LinearLayout
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			android:gravity="center_vertical"
+			  >
+
+
+
+
+			<TextView
+				android:id="@+id/tv_tips"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"
+				android:layout_marginRight="5dp"
+				android:textSize="13sp"
+				android:text=""
+				android:textColor="@color/grayslate" />
+
+
+		</LinearLayout>
+	</LinearLayout>
+
+	<LinearLayout
+        android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:padding="3dp" >
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/CardNum"
+			android:textSize="14sp" />
+
+		<TextView
+			android:id="@+id/tv_count"
+			android:layout_width="0dp"
+			android:layout_weight="1"
+			android:layout_height="wrap_content"
+			android:text="0"
+			android:textSize="15sp"
+			android:textStyle="bold" />
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/CardCount"
+			android:textSize="14sp" />
+		<TextView
+			android:id="@+id/tv_alltag"
+			android:layout_width="0dp"
+			android:layout_weight="1"
+			android:layout_height="wrap_content"
+			android:text="0"
+			android:textSize="15sp"
+			android:textStyle="bold" />
+
+		<LinearLayout
+			android:layout_width="0dp"
+			android:layout_weight="1"
+			android:layout_height="wrap_content"
+			android:gravity="center|right"
+			android:orientation="horizontal">
+		<Button
+			android:id="@+id/BtClear"
+			android:layout_width="wrap_content"
+			android:layout_height="30dp"
+			android:text="@string/btClear"
+			android:textColor="@color/white"
+			android:background="@drawable/color_button_selector"
+			android:layout_marginRight="5dp" />
+		</LinearLayout>
+	</LinearLayout>
+
+
+	<LinearLayout
+        android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="5dp" >
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/ReadTime"
+			android:textSize="12sp" />
+		<TextView
+			android:id="@+id/tv_times"
+			android:layout_width="0dip"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="00:00:00"
+			android:textColor="@color/red1"
+			android:textSize="12sp"
+			android:textStyle="bold" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:text="@string/CardSpeed"
+			android:textSize="12sp" />
+		<TextView
+			android:id="@+id/tv_tagspeed"
+			android:layout_width="0dip"
+			android:layout_height="wrap_content"
+			android:text="0"
+			android:layout_weight="1"
+			android:textColor="@color/red1"
+			android:textSize="12sp"
+			android:textStyle="bold" />
+		<LinearLayout
+			android:id="@+id/ll_ascii"
+			android:layout_width="0dp"
+			android:layout_weight="1"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			android:orientation="horizontal">
+
+		</LinearLayout>
+	</LinearLayout>
+
+
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="5dp"
+		android:background="@color/gray1" />
+
+
+
+	<LinearLayout
+        android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center_vertical"
+		android:orientation="horizontal"
+		android:background="@color/white"
+		android:paddingBottom="5dp"
+		android:paddingLeft="10dp"
+		android:paddingRight="10dp"
+		android:paddingTop="5dp" >
+
+		<TextView
+			android:layout_width="0dip"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="@string/tvTagUii"
+			android:textSize="15sp" />
+
+		<TextView
+            android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="4"
+			android:text=""
+			android:textColor="@color/red1"
+			android:textSize="16sp"
+			android:textStyle="bold" />
+
+		<TextView
+			android:layout_width="0dip"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="@string/tvTagLen"
+			android:visibility="gone" />
+
+		<TextView
+			android:layout_width="0dip"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:gravity="center"
+			android:text="@string/tvTagCount"
+			android:textSize="15sp" />
+
+		<TextView
+			android:layout_width="0dip"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:gravity="center"
+			android:text="RSSI"
+			android:textSize="15sp"/>
+	</LinearLayout>
+
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="1px"
+		android:background="@color/gray1" />
+
+	<androidx.recyclerview.widget.RecyclerView
+		android:id="@+id/LvTags"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent" />
+
+</LinearLayout>
+</layout>

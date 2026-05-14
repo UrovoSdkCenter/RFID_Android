@@ -1,0 +1,65 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 34
+
+    defaultConfig {
+        applicationId "com.ubx.rfid"
+        minSdkVersion 26
+        targetSdkVersion 34
+        versionCode getAppVersion("code","")
+        versionName getAppVersion("name","")
+
+        missingDimensionStrategy 'rfid',   'nor','lite'
+    }
+
+    
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+           
+        }
+        debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            
+        }
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+    buildFeatures {
+        dataBinding = true
+        buildConfig = true
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            def fileName = "RFIDDemo_v${defaultConfig.versionName}.apk"//_${buildType.name} --> debug 或 release
+            outputFileName = fileName
+        }
+    }
+
+
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    implementation project(path:':base'  )
+}
+
+
+static def getAppVersion(type,vendor) {
+    int versionCode = 35
+    if (type == "code"){
+        return versionCode
+    } else {
+        return vendor+versionCode+"_"+new Date().format("yyyyMMddHHmm")
+    }
+}

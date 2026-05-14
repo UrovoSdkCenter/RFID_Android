@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <!-- DataBinding 变量可以在这里定义 -->
+    </data>
+
+<LinearLayout
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical" >
+
+
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="1px"
+		android:background="@color/gray1" />
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
+
+		<RadioGroup
+			android:id="@+id/RgInventory"
+			android:layout_width="0dp"
+			android:layout_weight="2"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			android:layout_marginLeft="10dp"
+			android:padding="5dp" >
+
+			<RadioButton
+				android:id="@+id/RbInventorySingle"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:text="@string/rbInventorySingle"
+				android:textColor="@drawable/check_text_color2"
+				android:textSize="15sp"
+				android:layout_width="0dp" />
+			<RadioButton
+				android:id="@+id/RbInventoryLoop"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:checked="true"
+				android:text="@string/rbInventoryLoop"
+				android:textColor="@drawable/check_text_color2"
+				android:layout_width="0dp"
+				android:textSize="15sp" />
+
+
+		</RadioGroup>
+
+		<TextView
+			android:id="@+id/tv_fm"
+			android:layout_width="0dp"
+			android:layout_weight="1"
+			android:padding="5dp"
+			android:layout_height="match_parent"
+			android:gravity="center"/>
+
+	</LinearLayout>
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="1px"
+		android:background="@color/gray1" />
+	<!-- Filter 区域 -->
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical">
+
+		<!-- Filter 按钮行 -->
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			android:padding="3dp"
+			android:layout_marginLeft="10dp"
+			android:gravity="center_vertical">
+			<LinearLayout
+				android:layout_width="0dp"
+				android:layout_weight="1"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:gravity="center_vertical">
+			<CheckBox
+				android:id="@+id/cb_filter"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/strfilter"
+				android:textSize="13sp"
+				android:enabled="false"
+				android:textColor="@color/black" />
+
+			<ImageView
+				android:id="@+id/iv_filter_arrow"
+				android:layout_width="24dp"
+				android:layout_height="24dp"
+				android:layout_marginLeft="2dp"
+				android:src="@drawable/ic_arrow_down"
+				android:clickable="true"
+				android:background="?android:attr/selectableItemBackgroundBorderless"
+				android:padding="2dp" />
+			</LinearLayout>
+
+			<CheckBox
+				android:id="@+id/cb_tag_focus"
+				android:layout_width="0dp"
+				android:layout_weight="1"
+				android:layout_height="wrap_content"
+				android:text="TagFocus"
+				android:textSize="14sp"
+				android:textColor="@color/black"
+				android:layout_marginRight="10dp" />
+
+			<CheckBox
+				android:id="@+id/cb_fast_id"
+				android:layout_width="0dp"
+				android:layout_weight="1"
+				android:layout_height="wrap_content"
+				android:text="FastID"
+				android:textSize="14sp"
+				android:textColor="@color/black" />
+
+		</LinearLayout>
+
+		<!-- Filter 展开面板 -->
+		<LinearLayout
+			android:id="@+id/ll_filter_panel"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			android:layout_marginLeft="10dp"
+			android:background="@color/lightblue"
+			android:padding="5dp"
+			android:visibility="gone">
+
+			<!-- Ptr 和 Len 输入行 -->
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:gravity="center_vertical"
+				android:layout_marginBottom="5dp">
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Addr:"
+					android:textSize="13sp"
+					android:textColor="@color/black"
+					android:layout_marginRight="10dp" />
+
+				<EditText
+					android:id="@+id/et_filter_ptr"
+					android:layout_width="0dp"
+					android:layout_height="30dp"
+					android:layout_weight="1"
+					android:background="@drawable/edittext_bg"
+					android:text="0"
+					android:inputType="number"
+					android:textSize="13sp"
+					android:paddingLeft="10dp"
+					android:paddingRight="10dp"
+					android:layout_marginRight="20dp"
+					android:focusable="true"
+					android:focusableInTouchMode="true"
+					android:clickable="true" />
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="(bit) Len:"
+					android:textSize="13sp"
+					android:textColor="@color/black"
+					android:layout_marginRight="10dp" />
+
+				<EditText
+					android:id="@+id/et_filter_len"
+					android:layout_width="0dp"
+					android:layout_height="30dp"
+					android:layout_weight="1"
+					android:background="@drawable/edittext_bg"
+					android:inputType="number"
+					android:textSize="13sp"
+					android:text="0"
+					android:paddingLeft="10dp"
+					android:paddingRight="10dp"
+					android:focusable="true"
+					android:focusableInTouchMode="true"
+					android:clickable="true" />
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="(bit)"
+					android:textSize="13sp"
+					android:textColor="@color/black"
+					android:layout_marginLeft="5dp" />
+
+			</LinearLayout>
+
+			<!-- Data 输入行 -->
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:gravity="center_vertical"
+				android:layout_marginBottom="5dp">
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Data:"
+					android:textSize="13sp"
+					android:textColor="@color/black"
+					android:layout_marginRight="10dp" />
+
+				<EditText
+					android:id="@+id/et_filter_data"
+					android:layout_width="0dp"
+					android:layout_height="30dp"
+					android:layout_weight="1"
+					android:background="@drawable/edittext_bg"
+					android:hint=""
+					android:inputType="textCapCharacters"
+					android:textSize="13sp"
+					android:paddingLeft="10dp"
+					android:paddingRight="10dp"
+					android:focusable="true"
+					android:focusableInTouchMode="true"
+					android:clickable="true" />
+
+			</LinearLayout>
+
+			<!-- 单选按钮组 -->
+			<RadioGroup
+				android:id="@+id/rg_filter_type"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:layout_marginBottom="15dp">
+
+				<RadioButton
+					android:id="@+id/rb_filter_epc"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:text="EPC"
+					android:textSize="13sp"
+					android:textColor="@color/black"
+					android:checked="true" />
+
+				<RadioButton
+					android:id="@+id/rb_filter_tid"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:text="TID"
+					android:textSize="13sp"
+					android:textColor="@color/black" />
+
+				<RadioButton
+					android:id="@+id/rb_filter_user"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:text="USER"
+					android:textSize="13sp"
+					android:textColor="@color/black" />
+
+			</RadioGroup>
+
+			<!-- Data 输入行 -->
+			<RelativeLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:gravity="center_vertical"
+				>
+
+				<!-- OK 按钮 -->
+				<Button
+					android:id="@+id/btn_filter_cancel"
+					android:layout_width="wrap_content"
+					android:layout_height="30dp"
+					android:layout_marginLeft="20dp"
+					android:text="Cancel"
+					android:textColor="@color/white"
+					android:background="@drawable/color_button_selector_shallow"
+					android:paddingLeft="30dp"
+					android:paddingRight="30dp" />
+
+				<!-- OK 按钮 -->
+				<Button
+					android:id="@+id/btn_filter_ok"
+					android:layout_width="wrap_content"
+					android:layout_height="30dp"
+					android:layout_alignParentRight="true"
+					android:layout_marginRight="20dp"
+					android:text="OK"
+					android:textColor="@color/white"
+					android:background="@drawable/color_button_selector_shallow"
+					android:paddingLeft="30dp"
+					android:paddingRight="30dp" />
+			</RelativeLayout>
+		</LinearLayout>
+
+	</LinearLayout>
+
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="1px"
+		android:background="@color/gray1" />
+
+	<LinearLayout
+        android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:paddingLeft="10dp"
+		android:paddingRight="10dp"
+		android:gravity="center_vertical" >
+
+
+
+
+		<LinearLayout
+			android:id="@+id/llContinuous"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			android:gravity="center_vertical"
+			android:paddingBottom="3dp"
+			android:paddingTop="3dp" >
+
+
+
+
+			<Button
+				android:id="@+id/BtInventory"
+				android:layout_width="0dp"
+				android:layout_height="35dp"
+				android:layout_marginLeft="5dp"
+				android:layout_marginRight="5dp"
+				android:layout_weight="3"
+				android:background="@drawable/color_button_selector"
+				android:text="@string/btInventory"
+				android:textColor="@color/white" />
+
+			<Button
+				android:id="@+id/BtImport"
+				android:layout_width="wrap_content"
+				android:layout_height="35dp"
+				android:background="@drawable/color_button_selector"
+				android:textColor="@color/white"
+				android:text="@string/btImport" />
+
+
+
+
+		</LinearLayout>
+		<LinearLayout
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			android:gravity="center_vertical"
+			  >
+
+
+
+
+			<TextView
+				android:id="@+id/tv_tips"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"
+				android:layout_marginRight="5dp"
+				android:textSize="13sp"
+				android:text=""
+				android:textColor="@color/grayslate" />
+
+
+		</LinearLayout>
+	</LinearLayout>
+
+	<LinearLayout
+        android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:padding="3dp" >
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/CardNum"
+			android:textSize="14sp" />
+
+		<TextView
+			android:id="@+id/tv_count"
+			android:layout_width="0dp"
+			android:layout_weight="1"
+			android:layout_height="wrap_content"
+			android:text="0"
+			android:textSize="15sp"
+			android:textStyle="bold" />
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/CardCount"
+			android:textSize="14sp" />
+		<TextView
+			android:id="@+id/tv_alltag"
+			android:layout_width="0dp"
+			android:layout_weight="1"
+			android:layout_height="wrap_content"
+			android:text="0"
+			android:textSize="15sp"
+			android:textStyle="bold" />
+
+		<LinearLayout
+			android:layout_width="0dp"
+			android:layout_weight="1"
+			android:layout_height="wrap_content"
+			android:gravity="center|right"
+			android:orientation="horizontal">
+		<Button
+			android:id="@+id/BtClear"
+			android:layout_width="wrap_content"
+			android:layout_height="30dp"
+			android:text="@string/btClear"
+			android:textColor="@color/white"
+			android:background="@drawable/color_button_selector"
+			android:layout_marginRight="5dp" />
+		</LinearLayout>
+	</LinearLayout>
+
+
+	<LinearLayout
+        android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="5dp" >
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/ReadTime"
+			android:textSize="12sp" />
+		<TextView
+			android:id="@+id/tv_times"
+			android:layout_width="0dip"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="00:00:00"
+			android:textColor="@color/red1"
+			android:textSize="12sp"
+			android:textStyle="bold" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:text="@string/CardSpeed"
+			android:textSize="12sp" />
+		<TextView
+			android:id="@+id/tv_tagspeed"
+			android:layout_width="0dip"
+			android:layout_height="wrap_content"
+			android:text="0"
+			android:layout_weight="1"
+			android:textColor="@color/red1"
+			android:textSize="12sp"
+			android:textStyle="bold" />
+		<LinearLayout
+			android:id="@+id/ll_ascii"
+			android:layout_width="0dp"
+			android:layout_weight="1"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			android:orientation="horizontal">
+
+			<CheckBox
+				android:id="@+id/cb_ascii"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="ASCII"
+				android:textSize="10sp"
+				android:textColor="@color/black"
+				/>
+
+		</LinearLayout>
+	</LinearLayout>
+
+
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="5dp"
+		android:background="@color/gray1" />
+
+
+
+	<LinearLayout
+        android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center_vertical"
+		android:orientation="horizontal"
+		android:background="@color/white"
+		android:paddingBottom="5dp"
+		android:paddingLeft="10dp"
+		android:paddingRight="10dp"
+		android:paddingTop="5dp" >
+
+		<TextView
+			android:layout_width="0dip"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="@string/tvTagUii"
+			android:textSize="15sp" />
+
+		<TextView
+            android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="4"
+			android:text=""
+			android:textColor="@color/red1"
+			android:textSize="16sp"
+			android:textStyle="bold" />
+
+		<TextView
+			android:layout_width="0dip"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="@string/tvTagLen"
+			android:visibility="gone" />
+
+		<TextView
+			android:layout_width="0dip"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:gravity="center"
+			android:text="@string/tvTagCount"
+			android:textSize="15sp" />
+
+		<TextView
+			android:layout_width="0dip"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:gravity="center"
+			android:text="RSSI"
+			android:textSize="15sp"/>
+	</LinearLayout>
+
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="1px"
+		android:background="@color/gray1" />
+
+	<androidx.recyclerview.widget.RecyclerView
+		android:id="@+id/LvTags"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent" />
+
+</LinearLayout>
+</layout>

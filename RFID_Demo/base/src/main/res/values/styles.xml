@@ -1,0 +1,69 @@
+<resources>
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+<!--    <style name="AppBaseTheme" parent="android:Theme.Light">-->
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+        <!-- 关键：覆盖默认的按钮样式 -->
+        <item name="buttonStyle">@style/MyNormalCaseButton</item>
+        <!-- 覆盖其他可能的按钮样式 -->
+        <item name="android:buttonStyle">@style/MyNormalCaseButton</item>
+    </style>
+
+    <!-- 定义一个新的按钮样式，继承自AppCompat的默认按钮样式，但关闭全大写 -->
+    <style name="MyNormalCaseButton" parent="@style/Widget.AppCompat.Button">
+        <item name="android:textAllCaps">false</item>
+        <!-- 您可以在这里添加其他统一的自定义属性，比如颜色、圆角等 -->
+    </style>
+    
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <!-- 确保Button样式在AppTheme中也生效 -->
+        <item name="buttonStyle">@style/MyNormalCaseButton</item>
+    </style>
+
+    <!-- 无ActionBar的主题，用于自定义Toolbar -->
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="buttonStyle">@style/MyNormalCaseButton</item>
+        <item name="android:buttonStyle">@style/MyNormalCaseButton</item>
+        <item name="colorPrimary">@color/main_color</item>
+        <item name="colorPrimaryDark">@color/main_color</item>
+    </style>
+
+    <style name="dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:popupBackground">@android:color/transparent</item>
+    </style>
+
+    <style name="loading" parent="">
+        <item name="android:indeterminate">true</item>
+        <item name="android:indeterminateOnly">true</item>
+        <item name="android:indeterminateDuration">1200</item>
+    </style>
+
+    <!-- Loading 对话框样式：圆角背景、无标题栏、背景透明 -->
+    <style name="LoadingDialogStyle" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@drawable/bg_loading_dialog</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.4</item>
+    </style>
+</resources>

@@ -1,0 +1,813 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <!-- DataBinding 变量可以在这里定义 -->
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginTop="5dp"
+        android:background="#f5f5f5">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Frequency Settings Card -->
+
+            <!-- Power Settings Card -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/card_background"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="3dp"
+                    android:text="@string/frequency_settings"
+                    android:textColor="@color/main_color"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:gravity="end"
+                        android:text="@string/band"
+                        android:textSize="14sp" />
+
+                    <Spinner
+                        android:id="@+id/band_spinner"
+                        android:layout_width="0dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:gravity="end"
+                        android:text="@string/dmin"
+                        android:textSize="14sp" />
+
+                    <Spinner
+                        android:id="@+id/min_spinner"
+                        android:layout_width="0dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="3dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:gravity="end"
+                        android:text="@string/dmax"
+                        android:textSize="14sp" />
+
+                    <Spinner
+                        android:id="@+id/max_spinner"
+                        android:layout_width="0dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/pro_read"
+                        android:layout_width="0dp"
+                        android:layout_height="32dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/color_button_selector"
+                        android:text="@string/getstr"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <Button
+                        android:id="@+id/pro_setting"
+                        android:layout_width="0dp"
+                        android:layout_height="32dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/color_button_selector"
+                        android:text="@string/setstr"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/card_background"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_marginBottom="3dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/power_settings"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/main_color"
+                    android:layout_marginBottom="3dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="3dp">
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/power"
+                        android:textSize="14sp"
+                        android:gravity="end"
+                        android:layout_marginEnd="8dp" />
+                    <Spinner
+                        android:id="@+id/power_spinner"
+                        android:layout_width="0dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:orientation="horizontal">
+                    <Button
+                        android:id="@+id/bt_GetPower"
+                        android:layout_width="0dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="4dp"
+                        android:background="@drawable/color_button_selector"
+                        android:text="@string/getstr"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+                    <Button
+                        android:id="@+id/bt_SetPower"
+                        android:layout_width="0dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="4dp"
+                        android:background="@drawable/color_button_selector"
+                        android:text="@string/setstr"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Inventory Parameters Card -->
+            <LinearLayout
+                android:id="@+id/ll_inventory_parameters"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/card_background"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_marginBottom="3dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/inventory_parameters"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/main_color"
+                    android:layout_marginBottom="3dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="2dp">
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="Target"
+                        android:textSize="14sp"
+                        android:gravity="end"
+                        android:layout_marginEnd="8dp" />
+                    <Spinner
+                        android:id="@+id/ab_spinner"
+                        android:layout_width="0dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="4dp" />
+                    <Button
+                        android:id="@+id/bt_GetAB"
+                        android:layout_width="50dp"
+                        android:layout_height="32dp"
+                        android:layout_marginEnd="2dp"
+                        android:background="@drawable/color_button_selector"
+                        android:text="@string/getstr"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+                    <Button
+                        android:id="@+id/bt_SetAB"
+                        android:layout_width="50dp"
+                        android:layout_height="32dp"
+                        android:layout_marginStart="2dp"
+                        android:background="@drawable/color_button_selector"
+                        android:text="@string/setstr"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="2dp">
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/qvalue"
+                        android:textSize="14sp"
+                        android:gravity="end"
+                        android:layout_marginEnd="8dp" />
+                    <Spinner
+                        android:id="@+id/qvalue_spinner"
+                        android:layout_width="0dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="4dp" />
+                    <Button
+                        android:id="@+id/bt_GetQV"
+                        android:layout_width="50dp"
+                        android:layout_height="32dp"
+                        android:layout_marginEnd="2dp"
+                        android:background="@drawable/color_button_selector"
+                        android:text="@string/getstr"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+                    <Button
+                        android:id="@+id/bt_SetQV"
+                        android:layout_width="50dp"
+                        android:layout_height="32dp"
+                        android:layout_marginStart="2dp"
+                        android:background="@drawable/color_button_selector"
+                        android:text="@string/setstr"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="2dp">
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/session"
+                        android:textSize="14sp"
+                        android:gravity="end"
+                        android:layout_marginEnd="8dp" />
+                    <Spinner
+                        android:id="@+id/session_spinner"
+                        android:layout_width="0dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="4dp" />
+                    <Button
+                        android:id="@+id/bt_GetSS"
+                        android:layout_width="50dp"
+                        android:layout_height="32dp"
+                        android:layout_marginEnd="2dp"
+                        android:background="@drawable/color_button_selector"
+                        android:text="@string/getstr"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+                    <Button
+                        android:id="@+id/bt_SetSS"
+                        android:layout_width="50dp"
+                        android:layout_height="32dp"
+                        android:layout_marginStart="2dp"
+                        android:background="@drawable/color_button_selector"
+                        android:text="@string/setstr"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/line_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="2dp"
+                    android:gravity="center_vertical">
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="Reader Mode"
+                        android:textSize="14sp"
+                        android:gravity="end"
+                        android:layout_marginEnd="8dp" />
+                    <Spinner
+                        android:id="@+id/prof_spinner"
+                        android:layout_width="0dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="4dp" />
+                    <Button
+                        android:id="@+id/bt_GetProfile"
+                        android:layout_width="50dp"
+                        android:layout_height="32dp"
+                        android:layout_marginEnd="2dp"
+                        android:background="@drawable/color_button_selector"
+                        android:text="@string/getstr"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+                    <Button
+                        android:id="@+id/bt_SetProfile"
+                        android:layout_width="50dp"
+                        android:layout_height="32dp"
+                        android:layout_marginStart="2dp"
+                        android:background="@drawable/color_button_selector"
+                        android:text="@string/setstr"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+            <!-- Gen2X Configuration Card -->
+            <LinearLayout
+                android:id="@+id/ll_gen2x_config_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/card_background"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_marginBottom="3dp">
+
+                <TextView
+                    android:id="@+id/title_g"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/main_color"
+                    android:layout_marginBottom="3dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="2dp">
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="CR"
+                        android:textSize="14sp"
+                        android:gravity="end"
+                        android:layout_marginEnd="8dp" />
+                    <Spinner
+                        android:id="@+id/cr_spinner"
+                        android:layout_width="0dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="2dp">
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="Protection"
+                        android:textSize="14sp"
+                        android:gravity="end"
+                        android:layout_marginEnd="8dp" />
+                    <Spinner
+                        android:id="@+id/protect_spinner"
+                        android:layout_width="0dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="3dp">
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="ID"
+                        android:textSize="14sp"
+                        android:gravity="end"
+                        android:layout_marginEnd="8dp" />
+                    <Spinner
+                        android:id="@+id/id_spinner"
+                        android:layout_width="0dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="3dp"
+                    android:orientation="horizontal">
+                    <Button
+                        android:id="@+id/btn_impinj_parm_get"
+                        android:layout_width="0dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="4dp"
+                        android:background="@drawable/color_button_selector"
+                        android:text="@string/getstr"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+                    <Button
+                        android:id="@+id/btn_impinj_parm_set"
+                        android:layout_width="0dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="4dp"
+                        android:background="@drawable/color_button_selector"
+                        android:text="@string/setstr"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <!-- Memory Bank Settings Card -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/card_background"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_marginBottom="3dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/memory_bank_settings"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/main_color"
+                    android:layout_marginBottom="3dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="2dp">
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/inv_mode"
+                        android:textSize="14sp"
+                        android:gravity="end"
+                        android:layout_marginEnd="8dp" />
+                    <Spinner
+                        android:id="@+id/spinner_inventory_mode"
+                        android:layout_width="0dp"
+                        android:layout_height="32dp"
+                        android:entries="@array/spinner_inventory_mode"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="2dp">
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tidptr"
+                        android:textSize="14sp"
+                        android:gravity="end"
+                        android:layout_marginEnd="8dp" />
+                    <Spinner
+                        android:id="@+id/tidptr_spinner"
+                        android:layout_width="0dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="3dp">
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tidlen"
+                        android:textSize="14sp"
+                        android:gravity="end"
+                        android:layout_marginEnd="8dp" />
+                    <Spinner
+                        android:id="@+id/tidlen_spinner"
+                        android:layout_width="0dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="3dp"
+                    android:orientation="horizontal">
+                    <Button
+                        android:id="@+id/area_read"
+                        android:layout_width="0dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="4dp"
+                        android:background="@drawable/color_button_selector"
+                        android:text="@string/getstr"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+                    <Button
+                        android:id="@+id/area_setting"
+                        android:layout_width="0dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="4dp"
+                        android:background="@drawable/color_button_selector"
+                        android:text="@string/setstr"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Other Parameters Card -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/card_background"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_marginBottom="3dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/other_parameters"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/main_color"
+                    android:layout_marginBottom="3dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="2dp">
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/inv_mode"
+                        android:textSize="14sp"
+                        android:gravity="end"
+                        android:layout_marginEnd="8dp" />
+                    <Spinner
+                        android:id="@+id/inventory_mode_spinner"
+                        android:layout_width="0dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="4dp" />
+                    <Button
+                        android:id="@+id/bt_get_energy_mode"
+                        android:layout_width="50dp"
+                        android:layout_height="32dp"
+                        android:layout_marginEnd="2dp"
+                        android:background="@drawable/color_button_selector"
+                        android:text="@string/getstr"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+                    <Button
+                        android:id="@+id/bt_set_energy_mode"
+                        android:layout_width="50dp"
+                        android:layout_height="32dp"
+                        android:layout_marginStart="2dp"
+                        android:background="@drawable/color_button_selector"
+                        android:text="@string/setstr"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="2dp">
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_range_controll"
+                        android:textSize="14sp"
+                        android:gravity="end"
+                        android:layout_marginEnd="8dp" />
+                    <Spinner
+                        android:id="@+id/range_spinner"
+                        android:layout_width="0dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="4dp" />
+                    <Button
+                        android:id="@+id/bt_GetRange"
+                        android:layout_width="50dp"
+                        android:layout_height="32dp"
+                        android:layout_marginEnd="2dp"
+                        android:background="@drawable/color_button_selector"
+                        android:text="@string/getstr"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+                    <Button
+                        android:id="@+id/bt_SetRange"
+                        android:layout_width="50dp"
+                        android:layout_height="32dp"
+                        android:layout_marginStart="2dp"
+                        android:background="@drawable/color_button_selector"
+                        android:text="@string/setstr"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/barate_str"
+                        android:textSize="14sp"
+                        android:gravity="end"
+                        android:layout_marginEnd="8dp" />
+                    <Spinner
+                        android:id="@+id/baud_spinner"
+                        android:layout_width="0dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="4dp" />
+                    <Button
+                        android:id="@+id/bt_GetBdRate"
+                        android:layout_width="50dp"
+                        android:layout_height="32dp"
+                        android:layout_marginEnd="2dp"
+                        android:background="@drawable/color_button_selector"
+                        android:text="@string/getstr"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+                    <Button
+                        android:id="@+id/bt_SetBdRate"
+                        android:layout_width="50dp"
+                        android:layout_height="32dp"
+                        android:layout_marginStart="2dp"
+                        android:background="@drawable/color_button_selector"
+                        android:text="@string/setstr"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="2dp">
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/RunTime"
+                        android:textSize="14sp"
+                        android:gravity="end"
+                        android:layout_marginEnd="8dp" />
+                    <EditText
+                        android:id="@+id/tv_runtime"
+                        android:layout_width="0dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="4dp"
+                        android:background="@drawable/edittext_bg"
+                        android:gravity="center_vertical"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:textSize="14sp" />
+                    <Button
+                        android:id="@+id/btn_timeout"
+                        android:layout_width="104dp"
+                        android:layout_height="32dp"
+                        android:layout_marginStart="2dp"
+                        android:background="@drawable/color_button_selector"
+                        android:text="@string/setstr"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="2dp"
+                    android:background="@color/lightblue"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp">
+
+                    <TextView
+                        android:id="@+id/tv_rssi_desc"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"
+                        android:text="@string/enable_0_100_rssi"
+                        android:textSize="14sp"
+                        android:textColor="@color/main_color"
+                        android:textStyle="bold"
+                        android:ellipsize="end"
+                        android:maxLines="2" />
+
+                    <Switch
+                        android:id="@+id/switch_rssi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+    </ScrollView>
+</layout>

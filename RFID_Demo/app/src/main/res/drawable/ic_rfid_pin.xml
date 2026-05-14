@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="64dp"
+    android:height="64dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    
+    <!-- 手柄主体 - 上部分 -->
+    <path
+        android:fillColor="@color/colorPrimary"
+        android:pathData="M7,2L17,2C18.1,2 19,2.9 19,4L19,12L5,12L5,4C5,2.9 5.9,2 7,2Z"/>
+    
+    <!-- 手柄握把 - 下部分,略微收窄 -->
+    <path
+        android:fillColor="@color/colorPrimary"
+        android:pathData="M8,12L16,12L15,20C15,21.1 14.1,22 13,22L11,22C9.9,22 9,21.1 9,20L8,12Z"/>
+    
+    <!-- 手柄面板 - 中间白色区域 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M8,6L16,6L16,11L8,11Z"/>
+    
+    <!-- 第一排 Pogo Pin - 4个黄色顶针 -->
+    <path
+        android:fillColor="#FFA726"
+        android:pathData="M9,7C9,6.72 9.22,6.5 9.5,6.5C9.78,6.5 10,6.72 10,7L10,8C10,8.28 9.78,8.5 9.5,8.5C9.22,8.5 9,8.28 9,8Z"/>
+    
+    <path
+        android:fillColor="#FFA726"
+        android:pathData="M10.5,7C10.5,6.72 10.72,6.5 11,6.5C11.28,6.5 11.5,6.72 11.5,7L11.5,8C11.5,8.28 11.28,8.5 11,8.5C10.72,8.5 10.5,8.28 10.5,8Z"/>
+    
+    <path
+        android:fillColor="#FFA726"
+        android:pathData="M12,7C12,6.72 12.22,6.5 12.5,6.5C12.78,6.5 13,6.72 13,7L13,8C13,8.28 12.78,8.5 12.5,8.5C12.22,8.5 12,8.28 12,8Z"/>
+    
+    <path
+        android:fillColor="#FFA726"
+        android:pathData="M13.5,7C13.5,6.72 13.72,6.5 14,6.5C14.28,6.5 14.5,6.72 14.5,7L14.5,8C14.5,8.28 14.28,8.5 14,8.5C13.72,8.5 13.5,8.28 13.5,8Z"/>
+    
+    <!-- 第二排 Pogo Pin - 4个黄色顶针 -->
+    <path
+        android:fillColor="#FFA726"
+        android:pathData="M9,9C9,8.72 9.22,8.5 9.5,8.5C9.78,8.5 10,8.72 10,9L10,10C10,10.28 9.78,10.5 9.5,10.5C9.22,10.5 9,10.28 9,10Z"/>
+    
+    <path
+        android:fillColor="#FFA726"
+        android:pathData="M10.5,9C10.5,8.72 10.72,8.5 11,8.5C11.28,8.5 11.5,8.72 11.5,9L11.5,10C11.5,10.28 11.28,10.5 11,10.5C10.72,10.5 10.5,10.28 10.5,10Z"/>
+    
+    <path
+        android:fillColor="#FFA726"
+        android:pathData="M12,9C12,8.72 12.22,8.5 12.5,8.5C12.78,8.5 13,8.72 13,9L13,10C13,10.28 12.78,10.5 12.5,10.5C12.22,10.5 12,10.28 12,10Z"/>
+    
+    <path
+        android:fillColor="#FFA726"
+        android:pathData="M13.5,9C13.5,8.72 13.72,8.5 14,8.5C14.28,8.5 14.5,8.72 14.5,9L14.5,10C14.5,10.28 14.28,10.5 14,10.5C13.72,10.5 13.5,10.28 13.5,10Z"/>
+</vector>
