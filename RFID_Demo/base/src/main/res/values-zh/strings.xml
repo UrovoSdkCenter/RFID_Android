@@ -51,6 +51,7 @@
     <string name="btn_active">实时模式</string>
     <string name="timeInterval">间隔时间:</string>
     <string name="dwelltime">驻留时间:</string>
+    <string name="tidptr_empty_warning">TID 不能为空!</string>
     <string name="wordptr_empty_warning">WordPtr 不能为空!</string>
     <string name="length_empty_warning">Length 不能为空!</string>
     <string name="pwd_empty_warning">Password 不能为空!</string>
@@ -96,41 +97,6 @@
         <item>13</item>
         <item>14</item>
         <item>15</item>
-    </string-array>
-    <string-array name="men_tid">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-        <item>8</item>
-        <item>9</item>
-        <item>10</item>
-        <item>11</item>
-        <item>12</item>
-        <item>13</item>
-        <item>14</item>
-        <item>15</item>
-        <item>16</item>
-        <item>17</item>
-        <item>18</item>
-        <item>19</item>
-        <item>20</item>
-        <item>21</item>
-        <item>22</item>
-        <item>23</item>
-        <item>24</item>
-        <item>25</item>
-        <item>26</item>
-        <item>27</item>
-        <item>28</item>
-        <item>29</item>
-        <item>30</item>
-        <item>31</item>
-        <item>32</item>
     </string-array>
 
 
@@ -232,6 +198,24 @@
         <item>自定义模式</item>
     </string-array>
 
+    <!-- Inventory Mode 弹窗标题（与 en_sp_inv_mode 保持一致） -->
+    <string name="inv_mode_battery_life">续航模式</string>
+    <string name="inv_mode_full_inventory">盘点模式</string>
+    <string name="inv_mode_rapid_repeat">快速累加模式</string>
+    <string name="inv_mode_balanced">均衡模式</string>
+    <string name="inv_mode_cycle_count">去重盘点模式</string>
+    <string name="inv_mode_max_range">远距模式</string>
+    <string name="inv_mode_custom">自定义模式</string>
+
+    <!-- Inventory Mode 描述 -->
+    <string name="inv_mode_battery_life_desc">延长设备续航时间；适用于高功耗场景，但盘点性能一般。</string>
+    <string name="inv_mode_full_inventory_desc">盘点到所有标签为目的，尽快找到未识别的标签；适用于大多数场景，性能比去重模式更稳定，介于快速和去重模式之间。</string>
+    <string name="inv_mode_rapid_repeat_desc">频繁（重复）读取并累计标签数量；适合速度演示，但覆盖范围较窄。</string>
+    <string name="inv_mode_balanced_desc">平衡性能和续航；适用于读取条件稳定的环境。</string>
+    <string name="inv_mode_cycle_count_desc">盘点没有被重复计数的所有标签；适用于高干扰环境，但后续读取速度较慢。</string>
+    <string name="inv_mode_max_range_desc">适用于单标签远距测试。</string>
+    <string name="inv_mode_custom_desc">根据您的需求自定义部分参数。</string>
+
 
     <string name="msgImportsuc">导出成功</string>
     <string name="msgImportfailed">导出失败</string>
@@ -258,6 +242,7 @@
     <string name="strreadandwrite">读写操作</string>
     <string name="strfindtag">标签查找</string>
     <string name="finding">查找</string>
+    <string name="fixed">固定式</string>
     <string name="device_info">设备</string>
     <string name="sled_info">手柄</string>
     <string name="strfactory">标签厂家:</string>
@@ -406,8 +391,10 @@
     <string name="switch_en">选择:</string>
     <string name="password">密码:</string>
     <string name="tag_protect_mode">标签隐私设置</string>
-    <string name="tvEnableProtectedmode">启用隐私模式</string>
-    <string name="tvDisableProtectedmode">禁用隐私模式</string>
+    <string name="tag_set_mode">标签模式设置</string>
+    <string name="tag_short_range">标签近距模式设置</string>
+    <string name="tvEnableProtectedmode">启用</string>
+    <string name="tvDisableProtectedmode">禁用</string>
     <string name="tab_protected">隐私模式</string>
     <string name="tab_auth">Authenticate</string>
     <string name="tab_ivtmode">Impinj 盘点</string>
@@ -454,5 +441,49 @@
     <string name="data_exchange_error">所选ASCII数据转换异常</string>
     <string name="led_aty">LED</string>
     <string name="enable_0_100_rssi">开启(0-100)的RSSI返回值</string>
+    <string name="enable_log">开启日志记录</string>
     <string name="sled_connecting">Sled连接中...</string>
+    <string name="into_auto_aty">进入自动测试界面</string>
+    <string name="tag_start_find_fail">启动TAG查找失败！</string>
+    <string name="protectmode">隐私模式</string>
+    <string name="shortrange">近距模式</string>
+    <string name="enabling_the_log_will_record_your_tag_operations">开启日志将会记录您的标签操作，包括标签内容和执行的标签指令，同时也会降低软件的运行速度，请确认是否开启？</string>
+
+    <string name="fixed_antenna_section_title">天线</string>
+    <string name="fixed_antenna_1">天线一</string>
+    <string name="fixed_antenna_2">天线二</string>
+    <string name="fixed_antenna_3">天线三</string>
+    <string name="fixed_antenna_4">天线四</string>
+    <string name="fixed_antenna_5">天线五</string>
+    <string name="fixed_antenna_6">天线六</string>
+    <string name="fixed_antenna_7">天线七</string>
+    <string name="fixed_antenna_8">天线八</string>
+    <string name="fixed_btn_antenna_detect">天线检测</string>
+    <string name="fixed_btn_set_inventory_antenna">设置盘点天线</string>
+    <string name="fixed_btn_get_inventory_antenna">已设置的盘点天线</string>
+    <string name="fixed_btn_set_access_antenna">设置Access天线</string>
+    <string name="fixed_btn_get_access_antenna">已设置的Access天线</string>
+    <string name="fixed_toast_select_at_least_one_antenna">至少选择一根天线。</string>
+    <string name="fixed_tf_rfid_unavailable">RFID 不可用。</string>
+    <string name="fixed_inventory_antenna_hint">已设置盘点天线（点击下方按钮读取）。</string>
+    <string name="fixed_access_antenna_hint">已设置 Access 天线（点击下方按钮读取）。</string>
+    <string name="fixed_antenna_label_on">开</string>
+    <string name="fixed_antenna_label_off">关</string>
+    <string name="fixed_result_code_fmt" formatted="false">状态码：%d</string>
+    <string name="fixed_gpio_section_title">GPIO（演示参考）</string>
+    <string name="fixed_gpio_outputs">输出</string>
+    <string name="fixed_gpio_inputs">输入</string>
+    <string name="fixed_gpio_start_monitor">开始轮询输入</string>
+    <string name="fixed_gpio_stop_monitor">停止轮询输入</string>
+    <string name="fixed_gpio_beep_on">蜂鸣器开</string>
+    <string name="fixed_gpio_beep_off">蜂鸣器关</string>
+    <string name="fixed_gpio_blue_led_on">蓝灯开</string>
+    <string name="fixed_gpio_blue_led_off">蓝灯关</string>
+    <string name="fixed_gpio_orange_led_on">橙灯开</string>
+    <string name="fixed_gpio_orange_led_off">橙灯关</string>
+    <string name="fixed_gpio_in_fmt" formatted="false">输入%d：%s</string>
+    <string name="fixed_gpio_state_high">1</string>
+    <string name="fixed_gpio_state_low">0</string>
+    <string name="fixed_gpio_state_unknown">?</string>
+    <string name="fixed_gpio_out_fmt" formatted="false">输出%d：%d</string>
 </resources>

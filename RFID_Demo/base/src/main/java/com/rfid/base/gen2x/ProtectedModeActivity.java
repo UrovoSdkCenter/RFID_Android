@@ -13,6 +13,7 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
@@ -106,6 +107,7 @@ public class ProtectedModeActivity extends Activity implements View.OnClickListe
         initHandler();
         initAdapters();
         initListeners();
+        initRadioGroup();
         clearData();
 
         RFIDSDKManager.getInstance().getRfidManager().setInventorySceneMode(InventorySceneMode.CUSTOM_MODE);
@@ -190,6 +192,28 @@ public class ProtectedModeActivity extends Activity implements View.OnClickListe
         binding.BtInventory.setText(getString(R.string.btStart));
     }
 
+    private void initRadioGroup() {
+// 2. 设置监听器
+        binding.radioGroupMode.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // checkedId 是被选中的那个 RadioButton 的 ID
+
+                if (checkedId == R.id.radio_protect) {
+                    // 选中了 Protect
+                   binding.cardReaderMode.setVisibility(View.VISIBLE);
+                    binding.cardTagMode.setVisibility(View.VISIBLE);
+                    binding.cardShortRange.setVisibility(View.GONE);
+                } else if (checkedId == R.id.radio_short_range) {
+                    // 选中了 ShortRange
+                    binding.cardReaderMode.setVisibility(View.GONE);
+                    binding.cardTagMode.setVisibility(View.GONE);
+                    binding.cardShortRange.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+    }
     /**
      * 初始化适配器
      * Initialize adapter
@@ -227,12 +251,9 @@ public class ProtectedModeActivity extends Activity implements View.OnClickListe
         binding.btnSetreadermode.setOnClickListener(this);
         binding.buttonEnableprotected.setOnClickListener(this);
         binding.buttonDisableprotected.setOnClickListener(this);
+        binding.buttonEnableShort.setOnClickListener(this);
+        binding.buttonDisableShort.setOnClickListener(this);
         
-        // 长按菜单监听  Long press the menu to listen
-        binding.LvTags.setOnCreateContextMenuListener((menu, v, menuInfo) -> {
-            menu.setHeaderTitle(getString(R.string.strtagoperate));
-            menu.add(0, 1, 0, getString(R.string.tab_protected));
-        });
     }
 
 
@@ -246,7 +267,8 @@ public class ProtectedModeActivity extends Activity implements View.OnClickListe
         binding.btnSetreadermode.setEnabled(enabled);
         binding.buttonEnableprotected.setEnabled(enabled);
         binding.buttonDisableprotected.setEnabled(enabled);
-        
+        binding.buttonEnableShort.setEnabled(enabled);
+        binding.buttonDisableShort.setEnabled(enabled);
         if (enabled) {
             binding.BtInventory.setEnabled(true);
         }
@@ -333,6 +355,7 @@ public class ProtectedModeActivity extends Activity implements View.OnClickListe
     private class RfidCallback implements DataCallback {
         @Override
         public void onInventoryTag(ReadTag readTag) {
+            Log.d(TAG, "onInventoryTag()  "+readTag.epcId);
             Message msg = handler.obtainMessage();
             msg.what = MSG_UPDATE_LISTVIEW;
             msg.obj = readTag;
@@ -369,6 +392,7 @@ public class ProtectedModeActivity extends Activity implements View.OnClickListe
             public boolean onMenuItemClick(MenuItem item) {
                 GlobalData.epc = tagList.get(position).epcId;
                 binding.epcText.setText(GlobalData.epc);
+                binding.epcTextShort.setText(GlobalData.epc);
                 return true;
             }
         });
@@ -443,10 +467,11 @@ public class ProtectedModeActivity extends Activity implements View.OnClickListe
         //In the Guide mode, saving is not performed to avoid overwriting the device configuration with an empty password.
         int profileExt = RFIDSDKManager.getInstance().getRfidManager().getExtProfile();
         if (profileExt > 4000) {
-            saveReaderProtectedMode();
+//            saveReaderProtectedMode();
         }
     }
     private void addResultCallBack(){
+        Log.d(TAG, "addResultCallBack()  "+rfidCallback);
         if (rfidCallback == null){
             rfidCallback = new RfidCallback();
             RFIDSDKManager.getInstance().getRfidManager().addDataCallback(rfidCallback);
@@ -508,6 +533,10 @@ public class ProtectedModeActivity extends Activity implements View.OnClickListe
             enableTagProtection();
         } else if (id == R.id.button_disableprotected) {
             disableTagProtection();
+        }else if (id == R.id.button_enable_short) {
+            enableTagShortRange();
+        } else if (id == R.id.button_disable_short) {
+            disableTagShortRange();
         }
     }
 
@@ -682,6 +711,70 @@ public class ProtectedModeActivity extends Activity implements View.OnClickListe
              ToastUtils.show(getString(R.string.set_success));
         } else {
              ToastUtils.show(getString(R.string.set_failed));
+        }
+    }
+
+
+
+    /**
+     * 启用标签保护模式
+     * Enable tag protection mode
+     */
+    private void enableTagShortRange() {
+        String password = binding.tagPwdShort.getText().toString();
+        if (TextUtils.isEmpty(password) || password.length() != PASSWORD_LENGTH) {
+            return;
+        }
+
+        String epc = binding.epcTextShort.getText().toString();
+        byte[] zeroPassword = new byte[4];
+
+        // 先写入密码  Enter the password first
+        int result = RFIDSDKManager.getInstance().getRfidManager()
+                .writeTag(epc, Util.bytesToHexString(zeroPassword, 0, 4),
+                        MEM_RESERVED, WORD_PTR_PASSWORD, password);
+
+        int epcNum = epc.length()/4 ;
+
+        if (result == 0 || result == 0x05) {
+            for (int i = 0; i < 2; i++) {
+                result = RFIDSDKManager.getInstance().getRfidManager().
+                        setShortRangeFlag(epcNum,epc, password,0,0,0,"",4,1);
+                if (result == 0) {
+                    break;
+                }
+            }
+
+            if (result == 0) {
+                ToastUtils.show(getString(R.string.set_success));
+            } else {
+                ToastUtils.show(getString(R.string.set_failed));
+            }
+        } else {
+            ToastUtils.show(getString(R.string.set_failed));
+        }
+    }
+
+    /**
+     * 禁用标签保护模式
+     * Disable Tag protection mode
+     */
+    private void disableTagShortRange() {
+        String password = binding.tagPwdShort.getText().toString();
+        if (TextUtils.isEmpty(password) || password.length() != PASSWORD_LENGTH) {
+            return;
+        }
+
+        String epc = binding.epcTextShort.getText().toString();
+
+        int epcNum = epc.length()/4 ;
+        int result = RFIDSDKManager.getInstance().getRfidManager().
+                setShortRangeFlag(epcNum,epc, password,0,0,0,"",4,0);
+
+        if (result == 0) {
+            ToastUtils.show(getString(R.string.set_success));
+        } else {
+            ToastUtils.show(getString(R.string.set_failed));
         }
     }
 }

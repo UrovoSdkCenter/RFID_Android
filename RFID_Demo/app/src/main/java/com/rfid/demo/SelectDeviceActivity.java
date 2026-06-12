@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.rfid.base.SelectDeviceBaseActivity;
-import com.rfid.base.SplashBaseActivity;
+import com.ubx.usdk.log.UlogManager;
 
 public class SelectDeviceActivity extends SelectDeviceBaseActivity {
 
@@ -13,7 +13,6 @@ public class SelectDeviceActivity extends SelectDeviceBaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
 	}
 
 	@Override

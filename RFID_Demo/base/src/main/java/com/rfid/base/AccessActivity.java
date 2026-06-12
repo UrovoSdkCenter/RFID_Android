@@ -26,6 +26,8 @@ import com.rfid.base.utils.Util;
 import com.rfid.base.utils.ViewHelper;
 import com.ubx.usdk.RFIDSDKManager;
 import com.ubx.usdk.bean.TagResult;
+import com.ubx.usdk.bean.enums.MemoryBank;
+import com.ubx.usdk.log.UlogManager;
 import com.ubx.usdk.rfid.util.RfidErrorConstants;
 import com.ubx.usdk.util.StringTool;
 
@@ -276,10 +278,8 @@ public class AccessActivity extends Activity implements OnClickListener, OnItemS
 
 			strEPC = getEPCHex(strEPC);
 
-			TagResult tagResult = RFIDSDKManager.getInstance().getRfidManager()
-				.readTag(strEPC, memBank, startAdd, wordCnt, password);
+			TagResult tagResult = RFIDSDKManager.getInstance().getRfidManager().readTag(strEPC, memBank, startAdd, wordCnt, password);
 			Log.i(TAG, "readTag: " + tagResult.code);
-
 			if (tagResult.code != 0) {
 				binding.etRead6c.setText("");
 				ToastUtils.show(getString(R.string.get_failed) + " " + tagResult.code);

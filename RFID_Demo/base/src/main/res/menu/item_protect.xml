@@ -2,5 +2,5 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/action_edit"
-        android:title="@string/tag_protect_mode" />
+        android:title="@string/tag_set_mode" />
 </menu>

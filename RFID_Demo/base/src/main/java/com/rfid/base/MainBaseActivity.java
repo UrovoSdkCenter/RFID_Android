@@ -22,6 +22,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.rfid.base.databinding.ActivityMainBinding;
 import com.rfid.base.gen2x.ProtectedModeActivity;
 import com.rfid.base.utils.SPUtils;
+import com.rfid.base.utils.Util;
 import com.ubx.usdk.RFIDSDKManager;
 import com.ubx.usdk.bean.enums.ReaderDeviceType;
 import com.ubx.usdk.bean.enums.RssiUnitType;
@@ -31,7 +32,7 @@ import com.ubx.usdk.io.GripDeviceManager;
 public abstract class MainBaseActivity extends BaseMainActivity {
 
 	// 使用 DataBinding
-	private static ActivityMainBinding binding;
+	public static ActivityMainBinding binding;
 	
 	public static TabHost myTabHost;
 	public TabHost.TabSpec tabSpecSled; // TabSpec of SledActivity
@@ -53,12 +54,14 @@ public abstract class MainBaseActivity extends BaseMainActivity {
 		setContentView(binding.getRoot());
 		
 		Toolbar toolbar = binding.toolbar;
-		setSupportActionBar(toolbar);
-		
-		if (getSupportActionBar() != null) {
-			setTitleCustom();
-			getSupportActionBar().setDisplayShowTitleEnabled(true);
-		}
+		setTitleCustom();
+
+//		setSupportActionBar(toolbar);
+//
+//		if (getSupportActionBar() != null) {
+//			setTitleCustom();
+//			getSupportActionBar().setDisplayShowTitleEnabled(true);
+//		}
 		
 		mLocalActivityManager = new LocalActivityManager(this, false);
 		mLocalActivityManager.dispatchCreate(savedInstanceState);
@@ -122,7 +125,7 @@ public abstract class MainBaseActivity extends BaseMainActivity {
 	public abstract void monitorTabChanged(Activity activity , int tabCurrent , String tabDes);
 
 	public void setTitleCustom(){
-		getSupportActionBar().setTitle(R.string.app_name);
+		binding.appVer.setText( Util.getVersionName(mContext) );
 	}
 
 
@@ -195,6 +198,15 @@ public abstract class MainBaseActivity extends BaseMainActivity {
 	 */
 	public static MainBaseActivity getInstance() {
 		return instance;
+	}
+
+	/**
+	 * 获取指定 Tab tag 对应的 Activity 实例
+	 * 供外部（如升级完成后刷新 UI）调用
+	 */
+	public Activity getTabActivity(String tabTag) {
+		if (mLocalActivityManager == null) return null;
+		return mLocalActivityManager.getActivity(tabTag);
 	}
 
 	/**

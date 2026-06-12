@@ -1,3 +1,6 @@
+# usdk / gripsdk 中的 android.device.* 由设备 ROM 提供；-keep 无法补 classpath，须 dontwarn
+-dontwarn android.device.**
+
 # Add project specific ProGuard rules here.
 # You can control the set of applied configuration files using the
 # proguardFiles setting in build.gradle.
@@ -32,10 +35,13 @@
 -keep class android.content.**{*;}
 -keep class android.os.**{*;}
 
+-keep class no.nordicsemi.**{*;}
+#-keep class com.ubx.usdk.ui.**{*;}
 
 
 #excel - export SDK
 -keep class common.**{*;}
 -keep class jxl.**{*;}
+
 
 

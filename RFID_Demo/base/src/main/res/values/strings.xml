@@ -51,6 +51,7 @@
     <string name="btn_answer">Answer Mode</string>
     <string name="btn_active">Active Mode</string>
     <string name="timeInterval">Interval:</string>
+    <string name="tidptr_empty_warning">TID can not be empty!</string>
     <string name="wordptr_empty_warning">WordPtr can not be empty!</string>
     <string name="length_empty_warning">Length can not be empty!</string>
     <string name="pwd_empty_warning">Password can not be empty!</string>
@@ -133,41 +134,7 @@
         <item>15</item>
     </string-array>
 
-    <string-array name="men_tid">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-        <item>8</item>
-        <item>9</item>
-        <item>10</item>
-        <item>11</item>
-        <item>12</item>
-        <item>13</item>
-        <item>14</item>
-        <item>15</item>
-        <item>16</item>
-        <item>17</item>
-        <item>18</item>
-        <item>19</item>
-        <item>20</item>
-        <item>21</item>
-        <item>22</item>
-        <item>23</item>
-        <item>24</item>
-        <item>25</item>
-        <item>26</item>
-        <item>27</item>
-        <item>28</item>
-        <item>29</item>
-        <item>30</item>
-        <item>31</item>
-        <item>32</item>
-    </string-array>
+
 
     <string-array name="arrayLock">
         <item>Unlock</item>
@@ -199,6 +166,24 @@
         <item>Max Range</item>
         <item>Custom Mode</item>
     </string-array>
+
+    <!-- Inventory Mode 弹窗标题（与 en_sp_inv_mode 保持一致） -->
+    <string name="inv_mode_battery_life">Battery Life</string>
+    <string name="inv_mode_full_inventory">Full Inventory</string>
+    <string name="inv_mode_rapid_repeat">Rapid Repeat</string>
+    <string name="inv_mode_balanced">Balanced Performance</string>
+    <string name="inv_mode_cycle_count">Cycle Count</string>
+    <string name="inv_mode_max_range">Max Range</string>
+    <string name="inv_mode_custom">Custom Mode</string>
+
+    <!-- Inventory Mode 描述 -->
+    <string name="inv_mode_battery_life_desc">Extends battery life; ideal for high power-consumption scenarios but offers average inventory performance.</string>
+    <string name="inv_mode_full_inventory_desc">Reads tags as quickly as possible; suitable for most scenarios with more stable performance than Cycle, positioned between Rapid and Cycle modes.</string>
+    <string name="inv_mode_rapid_repeat_desc">Quickly inventories tags with rapidly increasing duplicate counts; ideal for speed demos but less comprehensive.</string>
+    <string name="inv_mode_balanced_desc">Balanced between speed and battery life; suitable for environments with stable reading conditions.</string>
+    <string name="inv_mode_cycle_count_desc">Inventories all tags with no duplicate counts; suited for high-interference environments but slower on subsequent reads.</string>
+    <string name="inv_mode_max_range_desc">Suitable for single-tag long-range testing.</string>
+    <string name="inv_mode_custom_desc">Customize some parameters according to your needs.</string>
 
     <string-array name="city_array">
         <item>ALB</item>
@@ -352,6 +337,7 @@
     <string name="strreadandwrite">Read/write</string>
     <string name="strfindtag">Finding</string>
     <string name="finding">Find</string>
+    <string name="fixed">Fixed</string>
     <string name="device_info">Setting</string>
     <string name="sled_info">Sled</string>
     <string name="RunTime">Inventory timeout(Sec):</string>
@@ -487,6 +473,8 @@
     <string name="switch_en">State:</string>
     <string name="password">Password:</string>
     <string name="tag_protect_mode">Tag Protected Mode Setting</string>
+    <string name="tag_set_mode">Tag Mode Setting</string>
+    <string name="tag_short_range">Tag Short Range Setting</string>
     <string name="tvEnableProtectedmode">Enable</string>
     <string name="tvDisableProtectedmode">Disable</string>
     <string name="tab_protected">Protected</string>
@@ -543,6 +531,49 @@
     <string name="data_exchange_error">The selected ASCII data conversion is abnormal</string>
     <string name="led_aty">LED</string>
     <string name="enable_0_100_rssi">Return value of RSSI ranging from 0-100</string>
-    <string name="into_auto_aty">进入自动测试界面</string>
+    <string name="enable_log">Enable log recording</string>
     <string name="sled_connecting">Sled connecting...</string>
+    <string name="into_auto_aty">Enter the automatic test interface</string>
+    <string name="tag_start_find_fail">Failed to start the TAG search.</string>
+    <string name="protectmode">ProtectMode</string>
+    <string name="shortrange">ShortRange</string>
+    <string name="enabling_the_log_will_record_your_tag_operations">Enabling the log will record your tag operations, including the tag content and the executed tag instructions. It will also slow down the operation of the APP. Please confirm if you want to enable it?</string>
+
+    <string name="fixed_antenna_section_title">Antenna</string>
+    <string name="fixed_antenna_1">Antenna 1</string>
+    <string name="fixed_antenna_2">Antenna 2</string>
+    <string name="fixed_antenna_3">Antenna 3</string>
+    <string name="fixed_antenna_4">Antenna 4</string>
+    <string name="fixed_antenna_5">Antenna 5</string>
+    <string name="fixed_antenna_6">Antenna 6</string>
+    <string name="fixed_antenna_7">Antenna 7</string>
+    <string name="fixed_antenna_8">Antenna 8</string>
+    <string name="fixed_btn_antenna_detect">Antenna detection</string>
+    <string name="fixed_btn_set_inventory_antenna">Set inventory antennas</string>
+    <string name="fixed_btn_get_inventory_antenna">Read inventory antenna config</string>
+    <string name="fixed_btn_set_access_antenna">Set Access antennas</string>
+    <string name="fixed_btn_get_access_antenna">Read Access antenna config</string>
+    <string name="fixed_toast_select_at_least_one_antenna">Select at least one antenna.</string>
+    <string name="fixed_tf_rfid_unavailable">RFID unavailable.</string>
+    <string name="fixed_inventory_antenna_hint">Inventory antenna config (tap button below).</string>
+    <string name="fixed_access_antenna_hint">Access antenna config (tap button below).</string>
+    <string name="fixed_antenna_label_on">On</string>
+    <string name="fixed_antenna_label_off">Off</string>
+    <string name="fixed_result_code_fmt" formatted="false">Code: %d</string>
+    <string name="fixed_gpio_section_title">GPIO (reference)</string>
+    <string name="fixed_gpio_outputs">Outputs</string>
+    <string name="fixed_gpio_inputs">Inputs</string>
+    <string name="fixed_gpio_start_monitor">Start input polling</string>
+    <string name="fixed_gpio_stop_monitor">Stop input polling</string>
+    <string name="fixed_gpio_beep_on">Beep on</string>
+    <string name="fixed_gpio_beep_off">Beep off</string>
+    <string name="fixed_gpio_blue_led_on">Blue LED on</string>
+    <string name="fixed_gpio_blue_led_off">Blue LED off</string>
+    <string name="fixed_gpio_orange_led_on">Orange LED on</string>
+    <string name="fixed_gpio_orange_led_off">Orange LED off</string>
+    <string name="fixed_gpio_in_fmt" formatted="false">IN%d: %s</string>
+    <string name="fixed_gpio_state_high">1</string>
+    <string name="fixed_gpio_state_low">0</string>
+    <string name="fixed_gpio_state_unknown">?</string>
+    <string name="fixed_gpio_out_fmt" formatted="false">OUT%d: %d</string>
 </resources>

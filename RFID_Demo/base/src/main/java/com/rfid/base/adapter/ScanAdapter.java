@@ -2,6 +2,7 @@ package com.rfid.base.adapter;
 
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.le.ScanResult;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,13 +13,13 @@ import com.rfid.base.R;
 
 import java.util.List;
 
-public class ScanAdapter extends RecyclerAdapter<BluetoothDevice> {
+public class ScanAdapter extends RecyclerAdapter<ScanResult> {
 
     private int opened = -1;
     private OnClickItem mOnClickItem;
 
 
-    public ScanAdapter(Context context,  List<BluetoothDevice> datas) {
+    public ScanAdapter(Context context,  List<ScanResult> datas) {
         super(context, R.layout.item_scan, datas);
     }
 
@@ -28,15 +29,17 @@ public class ScanAdapter extends RecyclerAdapter<BluetoothDevice> {
 
     @SuppressLint("MissingPermission")
     @Override
-    public void convert(RecyclerViewHolder hepler, BluetoothDevice device) {
+    public void convert(RecyclerViewHolder hepler, ScanResult scanResult) {
         TextView rssi = hepler.getView(R.id.tv_rssi);
         TextView name = hepler.getView(R.id.tv_name);
         TextView address = hepler.getView(R.id.tv_address);
 
+        BluetoothDevice device = scanResult.getDevice();
+        if (TextUtils.isEmpty(device.getName())) {
+            return;
+        }
 
-
-//        BleDevice device = rssiDevice.getDevice();
-//        rssi.setText(String.format("%ddBm", device.ge()));
+        rssi.setText(String.format("%ddBm", scanResult.getRssi() ));
         if (TextUtils.isEmpty(device.getName())){
             name.setText("Unknown");
         }else {
@@ -44,22 +47,6 @@ public class ScanAdapter extends RecyclerAdapter<BluetoothDevice> {
         }
         address.setText(device.getAddress());
 
-        int deviceType = device.getType();
-        String type;
-        switch (deviceType){
-            case 1:
-                type = "Device type: Classic";
-                break;
-            case 2:
-                type = "Device type: LE only";
-                break;
-            case 3:
-                type = "Device type: Classic and LE only";
-                break;
-            default:
-                type = "Device type: UNKNOWN";
-                break;
-        }
 
         hepler.getView(R.id.tv_connect).setOnClickListener(new View.OnClickListener() {
             @Override

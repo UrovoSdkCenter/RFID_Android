@@ -23,4 +23,6 @@
     <color name="lightblue">#E3F2FD</color>
     <color name="lightgray">#F5F5F5</color>
 
+    <color name="lab_color">#6F7FDB</color>
+
 </resources>

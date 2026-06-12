@@ -2,6 +2,7 @@ package com.rfid.base;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import com.rfid.base.databinding.ActivityConfigBinding;
+import com.rfid.base.utils.DialogUtils;
 import com.rfid.base.utils.SpinnerHelper;
 import com.rfid.base.utils.ToastUtils;
 import com.rfid.base.utils.ViewHelper;
@@ -20,12 +22,11 @@ import com.ubx.usdk.bean.RfidParameter;
 import com.ubx.usdk.bean.enums.FrequencyRegion;
 import com.ubx.usdk.bean.enums.InventorySceneMode;
 import com.ubx.usdk.bean.enums.QueryMemBank;
+import com.ubx.usdk.bean.enums.ReaderDeviceType;
 import com.ubx.usdk.bean.enums.RfidProfile;
 import com.ubx.usdk.bean.enums.RssiUnitType;
 import com.ubx.usdk.bean.enums.Target;
-import com.ubx.usdk.constant.BTKeyEvent;
-import com.ubx.usdk.io.GripDeviceManager;
-import com.ubx.usdk.io.listener.KeyEventListener;
+import com.ubx.usdk.log.UlogManager;
 import com.ubx.usdk.rfid.util.RfidErrorConstants;
 
 import java.util.ArrayList;
@@ -43,9 +44,13 @@ public class ConfigActivity extends BaseActivity implements OnClickListener,TabL
     private String[] strminFrm = null;
     protected String[] strProfile = new String[12];
     private String[] strRange = new String[109];
+    private String[] strMemBankLength = new String[361];
     private String[] strBaudRate = new String[2];
 
     private List<RfidProfile> profileList;
+
+    /** 当前选中的 Inventory Mode 位置（替代 Spinner.getSelectedItemPosition） */
+    protected int mInventoryModePosition = 0;
 
     private List<FrequencyRegion> brandList;
 
@@ -78,7 +83,7 @@ public class ConfigActivity extends BaseActivity implements OnClickListener,TabL
     @Override
     protected void onResume() {
         super.onResume();
-        
+
     }
 
     @Override
@@ -161,8 +166,8 @@ public class ConfigActivity extends BaseActivity implements OnClickListener,TabL
      */
     private void setupSwitchListener() {
 
-       boolean isEnable = RFIDSDKManager.getInstance().getRfidManager().getRssiUnitType() == RssiUnitType.PERCENTAGE;
-       binding.switchRssi.setChecked(isEnable);
+        boolean isEnable = RFIDSDKManager.getInstance().getRfidManager().getRssiUnitType() == RssiUnitType.PERCENTAGE;
+        binding.switchRssi.setChecked(isEnable);
 
         binding.switchRssi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -174,6 +179,39 @@ public class ConfigActivity extends BaseActivity implements OnClickListener,TabL
                 }
             }
         });
+
+
+        boolean isEnableLog = UlogManager.isEnableLog();
+        binding.switchLog.setChecked(isEnableLog);
+
+        binding.switchLog.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    if (checkFilePermiss(ConfigActivity.this)){
+                        enableLog();
+                    }else {
+                        binding.switchLog.setChecked(false);
+                    }
+                } else {
+                    UlogManager.enableLog(false);
+                }
+            }
+        });
+    }
+    private void enableLog(){
+        DialogUtils.getInstance().showDoubleButtonDialog(ConfigActivity.this, getResources().getString(R.string.tip),getString(R.string.enabling_the_log_will_record_your_tag_operations), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                UlogManager.enableLog(true);
+            }
+        }, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                binding.switchLog.setChecked(false);
+            }
+        });
+
     }
     /**
      * Initialize basic configuration
@@ -205,7 +243,10 @@ public class ConfigActivity extends BaseActivity implements OnClickListener,TabL
             strRange[index] = String.valueOf(index);
         }
 
-
+        // Initialize the MemBank Length array
+        for (int index = 0; index <= 360; index++) {
+            strMemBankLength[index] = String.valueOf(index);
+        }
 
 
     }
@@ -345,7 +386,7 @@ public class ConfigActivity extends BaseActivity implements OnClickListener,TabL
         SpinnerHelper.setupSpinner(this, binding.sessionSpinner, R.array.men_s, 1);
 
         // TID地址和长度Spinner
-        SpinnerHelper.setupSpinner(this, binding.tidptrSpinner, R.array.men_tid, 0);
+        SpinnerHelper.setupSpinner(this, binding.tidptrSpinner, strMemBankLength, 0);
         SpinnerHelper.setupSpinner(this, binding.tidlenSpinner, R.array.men_tid, 6);
 
         // 查询模式Spinner  Query mode
@@ -353,12 +394,18 @@ public class ConfigActivity extends BaseActivity implements OnClickListener,TabL
         setupQueryModeSpinnerListener();
         ViewHelper.setEnabled(false, binding.tidptrSpinner, binding.tidlenSpinner);
 
-        //Inventory mode Spinner
+        //Inventory mode — 自定义弹窗替代 Spinner
         ReaderType = RFIDSDKManager.getInstance().getRfidManager().getReaderType();
         InventorySceneMode inventorySceneMode = RFIDSDKManager.getInstance()
                 .getRfidManager().getInventorySceneMode();
-        SpinnerHelper.setupSpinner(this, binding.inventoryModeSpinner,
-                R.array.en_sp_inv_mode, inventorySceneMode.getValue());
+        mInventoryModePosition = inventorySceneMode != null ? inventorySceneMode.getValue() : 0;
+        updateInventoryModeText(mInventoryModePosition);
+        binding.inventoryModeSpinner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showInventoryModeDialog();
+            }
+        });
         setVisibilityParamterUI(inventorySceneMode == InventorySceneMode.CUSTOM_MODE);
 
         // Range Spinner
@@ -525,6 +572,10 @@ public class ConfigActivity extends BaseActivity implements OnClickListener,TabL
         } else {
             frequencyRegion = frequencyRegion1;
             readProfileParm(frequencyRegion);
+            if (RFIDSDKManager.getInstance().getRfidManager().getReaderDeviceType() == ReaderDeviceType.INTEGRATED){
+                initPowerAdapter();
+                handleGetPower(false);
+            }
             ToastUtils.show(getString(R.string.set_success));
         }
     }
@@ -700,7 +751,8 @@ public class ConfigActivity extends BaseActivity implements OnClickListener,TabL
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    binding.inventoryModeSpinner.setSelection(inventorySceneMode.getValue(), true);
+                    mInventoryModePosition = inventorySceneMode.getValue();
+                    updateInventoryModeText(mInventoryModePosition);
                     setVisibilityParamterUI(inventorySceneMode == InventorySceneMode.CUSTOM_MODE);
                 }
             });
@@ -713,7 +765,7 @@ public class ConfigActivity extends BaseActivity implements OnClickListener,TabL
     }
 
     private void handleSetEnergyMode() {
-        int index = binding.inventoryModeSpinner.getSelectedItemPosition();
+        int index = mInventoryModePosition;
         int ret = RFIDSDKManager.getInstance().getRfidManager()
                 .setInventorySceneMode(InventorySceneMode.fromValue(index));
 
@@ -727,6 +779,61 @@ public class ConfigActivity extends BaseActivity implements OnClickListener,TabL
         } else {
             ToastUtils.show(getString(R.string.set_failed));
         }
+    }
+
+    /**
+     * 更新 inventoryModeSpinner TextView 显示当前选中的模式名称
+     */
+    private void updateInventoryModeText(int position) {
+        String[] titles = getResources().getStringArray(R.array.en_sp_inv_mode);
+        if (position >= 0 && position < titles.length) {
+            binding.inventoryModeSpinner.setText(titles[position]);
+        }
+    }
+
+    /**
+     * 弹出 Inventory Mode 选择弹窗
+     * 每个 item 显示加粗标题 + 小字描述
+     */
+    private void showInventoryModeDialog() {
+        com.rfid.base.widget.InventoryModeDialog.ModeItem[] items =
+                new com.rfid.base.widget.InventoryModeDialog.ModeItem[]{
+            new com.rfid.base.widget.InventoryModeDialog.ModeItem(
+                getString(R.string.inv_mode_battery_life),
+                getString(R.string.inv_mode_battery_life_desc)),
+            new com.rfid.base.widget.InventoryModeDialog.ModeItem(
+                getString(R.string.inv_mode_full_inventory),
+                getString(R.string.inv_mode_full_inventory_desc)),
+            new com.rfid.base.widget.InventoryModeDialog.ModeItem(
+                getString(R.string.inv_mode_rapid_repeat),
+                getString(R.string.inv_mode_rapid_repeat_desc)),
+            new com.rfid.base.widget.InventoryModeDialog.ModeItem(
+                getString(R.string.inv_mode_balanced),
+                getString(R.string.inv_mode_balanced_desc)),
+            new com.rfid.base.widget.InventoryModeDialog.ModeItem(
+                getString(R.string.inv_mode_cycle_count),
+                getString(R.string.inv_mode_cycle_count_desc)),
+            new com.rfid.base.widget.InventoryModeDialog.ModeItem(
+                getString(R.string.inv_mode_max_range),
+                getString(R.string.inv_mode_max_range_desc)),
+            new com.rfid.base.widget.InventoryModeDialog.ModeItem(
+                getString(R.string.inv_mode_custom),
+                getString(R.string.inv_mode_custom_desc)),
+        };
+
+        new com.rfid.base.widget.InventoryModeDialog(this,
+                getString(R.string.inv_mode), items)
+                .setSelectedPosition(mInventoryModePosition)
+                .setOnItemSelectedListener(new com.rfid.base.widget.InventoryModeDialog.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(int position) {
+                        mInventoryModePosition = position;
+                        updateInventoryModeText(position);
+                        setVisibilityParamterUI(
+                                InventorySceneMode.fromValue(position) == InventorySceneMode.CUSTOM_MODE);
+                    }
+                })
+                .show();
     }
 
     private void handleSetBaudRate() {
@@ -797,7 +904,10 @@ public class ConfigActivity extends BaseActivity implements OnClickListener,TabL
                     public void run() {
                         SetFre(frequencyRegion);
                         readProfileParm(frequencyRegion);
-
+                        if (RFIDSDKManager.getInstance().getRfidManager().getReaderDeviceType() == ReaderDeviceType.INTEGRATED){
+                            initPowerAdapter();
+                            handleGetPower(false);
+                        }
                         binding.bandSpinner.setSelection(index, true);
                         binding.minSpinner.setSelection(frequencyRegion.getMinChannelIndex(), true);
                         binding.maxSpinner.setSelection(frequencyRegion.getMaxChannelIndex(), true);
@@ -931,12 +1041,12 @@ public class ConfigActivity extends BaseActivity implements OnClickListener,TabL
     }
 
     private void enableRssiRange() {
-     RFIDSDKManager.getInstance().getRfidManager().setRssiUnitType(RssiUnitType.PERCENTAGE);
+        RFIDSDKManager.getInstance().getRfidManager().setRssiUnitType(RssiUnitType.PERCENTAGE);
     }
 
     private void disableRssiRange() {
-       RFIDSDKManager.getInstance().getRfidManager().setRssiUnitType(RssiUnitType.RELATIVE);
+        RFIDSDKManager.getInstance().getRfidManager().setRssiUnitType(RssiUnitType.RELATIVE);
     }
 
-    
+
 }

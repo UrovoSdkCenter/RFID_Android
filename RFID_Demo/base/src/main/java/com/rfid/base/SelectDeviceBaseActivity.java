@@ -1,6 +1,7 @@
 package com.rfid.base;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -32,8 +33,9 @@ public abstract class SelectDeviceBaseActivity extends BaseActivity {
 		initRootView();
 		String ProjectName = DeviceManagerUtils.getSettingProperty("pwv.project");
 		String SN = DeviceManagerUtils.getDeviceId();
-		Log.d("TAG", "onCreate:   SN : "+SN+"  ProjectName : "+ProjectName);
-		if (TextUtils.isEmpty(ProjectName)){
+		String deviceModel = Build.MODEL;
+		Log.d("TAG", "onCreate:   SN : "+SN+"  ProjectName : "+ProjectName+"  deviceModel : "+deviceModel);
+		if (TextUtils.isEmpty(ProjectName) &&  !deviceModel.equals("uis8581e5h10_Natv") && !deviceModel.equals("FR1000")  ){
 			isPhone = true;
 		}
 		if (!TextUtils.isEmpty(ProjectName) && ProjectName.toUpperCase().contains("SQ610")){

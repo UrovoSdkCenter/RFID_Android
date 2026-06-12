@@ -67,11 +67,11 @@ public class BaseActivity extends AppCompatActivity {
 		Log.v("Utils","isGpsOpen()   isGpsEnabled : "+isGpsEnabled);
 		return isGpsEnabled;
 	}
-	public boolean checkFilePermiss(){
+	public boolean checkFilePermiss(Activity activity){
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R ||
 				Environment.isExternalStorageManager()) {
 		} else {
-			AlertDialog dialog = new AlertDialog.Builder(this)
+			AlertDialog dialog = new AlertDialog.Builder(activity)
 					.setTitle(com.rfid.base.R.string.tip)
 					.setMessage(com.rfid.base.R.string.app_need_read_all_file)
 					.setPositiveButton(com.rfid.base.R.string.strok, new DialogInterface.OnClickListener() {

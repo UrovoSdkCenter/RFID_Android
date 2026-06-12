@@ -186,18 +186,18 @@ public class FindingActivity extends BaseActivity implements View.OnClickListene
                                 handler.sendMessage(msg);
                                 num = 0;
                             } else {
-                                num = 0;
-                                if (rssi > 0)
-//                                    rssi -= 5;
-                                    rssi -= 20;
-                                if (rssi < 0)
-                                    rssi = 0;
-                                Message msg = handler.obtainMessage();
-                                msg = handler.obtainMessage();
-                                msg.what = 0;
-                                msg.obj = rssi + "";
-                                handler.sendMessage(msg);
-                                num++;
+                                num ++;//允许一次获取是空的，第二次就要参与UI的改变
+                                if (num >1) {
+                                    if (rssi > 0)
+                                        rssi -= 20;
+                                    if (rssi < 0)
+                                        rssi = 0;
+                                    Message msg = handler.obtainMessage();
+                                    msg = handler.obtainMessage();
+                                    msg.what = 0;
+                                    msg.obj = rssi + "";
+                                    handler.sendMessage(msg);
+                                }
                             }
                         }
                     }

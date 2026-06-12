@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/fixed_screen_padding">
+
+            <!-- 天线 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/fixed_section_spacing">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fixed_antenna_section_title"
+                        android:textColor="@color/main_color"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/fixed_item_spacing"
+                        android:orientation="horizontal"
+                        android:weightSum="4">
+
+                        <CheckBox
+                            android:id="@+id/cb_fixed_ant1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:enabled="false"
+                            android:text="@string/fixed_antenna_1"
+                            android:textSize="13sp" />
+
+                        <CheckBox
+                            android:id="@+id/cb_fixed_ant2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:enabled="false"
+                            android:text="@string/fixed_antenna_2"
+                            android:textSize="13sp" />
+
+                        <CheckBox
+                            android:id="@+id/cb_fixed_ant3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:enabled="false"
+                            android:text="@string/fixed_antenna_3"
+                            android:textSize="13sp" />
+
+                        <CheckBox
+                            android:id="@+id/cb_fixed_ant4"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:enabled="false"
+                            android:text="@string/fixed_antenna_4"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="4">
+
+                        <CheckBox
+                            android:id="@+id/cb_fixed_ant5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:enabled="false"
+                            android:text="@string/fixed_antenna_5"
+                            android:textSize="13sp" />
+
+                        <CheckBox
+                            android:id="@+id/cb_fixed_ant6"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:enabled="false"
+                            android:text="@string/fixed_antenna_6"
+                            android:textSize="13sp" />
+
+                        <CheckBox
+                            android:id="@+id/cb_fixed_ant7"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:enabled="false"
+                            android:text="@string/fixed_antenna_7"
+                            android:textSize="13sp" />
+
+                        <CheckBox
+                            android:id="@+id/cb_fixed_ant8"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:enabled="false"
+                            android:text="@string/fixed_antenna_8"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_fixed_antenna_detect"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/fixed_section_spacing"
+                        android:background="@drawable/fixed_btn_primary"
+                        android:minHeight="48dp"
+                        android:text="@string/fixed_btn_antenna_detect"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="15sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_fixed_set_inventory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/fixed_item_spacing"
+                        android:background="@drawable/fixed_btn_outline"
+                        android:minHeight="48dp"
+                        android:text="@string/fixed_btn_set_inventory_antenna"
+                        android:textAllCaps="false"
+                        android:textColor="@color/main_color"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/tv_fixed_inventory_result"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/fixed_item_spacing"
+                        android:background="@drawable/fixed_result_panel_bg"
+                        android:minHeight="48dp"
+                        android:text="@string/fixed_inventory_antenna_hint"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        tools:text="Antenna 1: On …" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_fixed_get_inventory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/fixed_item_spacing"
+                        android:background="@drawable/fixed_btn_outline"
+                        android:minHeight="48dp"
+                        android:text="@string/fixed_btn_get_inventory_antenna"
+                        android:textAllCaps="false"
+                        android:textColor="@color/main_color"
+                        android:textSize="15sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_fixed_set_access"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/fixed_section_spacing"
+                        android:background="@drawable/fixed_btn_outline"
+                        android:minHeight="48dp"
+                        android:text="@string/fixed_btn_set_access_antenna"
+                        android:textAllCaps="false"
+                        android:textColor="@color/main_color"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/tv_fixed_access_result"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/fixed_item_spacing"
+                        android:background="@drawable/fixed_result_panel_bg"
+                        android:minHeight="48dp"
+                        android:text="@string/fixed_access_antenna_hint"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        tools:text="Antenna 1: Off …" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_fixed_get_access"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/fixed_item_spacing"
+                        android:background="@drawable/fixed_btn_outline"
+                        android:minHeight="48dp"
+                        android:text="@string/fixed_btn_get_access_antenna"
+                        android:textAllCaps="false"
+                        android:textColor="@color/main_color"
+                        android:textSize="15sp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- GPIO -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/fixed_section_spacing"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/fixed_section_spacing">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fixed_gpio_section_title"
+                        android:textColor="@color/main_color"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/fixed_item_spacing"
+                        android:text="@string/fixed_gpio_outputs"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/fixed_item_spacing"
+                        android:orientation="horizontal"
+                        android:weightSum="4">
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btn_fixed_gpio_out1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="4dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/fixed_btn_outline_blue"
+                            android:paddingStart="4dp"
+                            android:paddingEnd="4dp"
+                            android:text="OUT1: 0"
+                            android:textAllCaps="false"
+                            android:textColor="@color/blue1"
+                            android:textSize="12sp" />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btn_fixed_gpio_out2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginEnd="4dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/fixed_btn_outline_blue"
+                            android:paddingStart="4dp"
+                            android:paddingEnd="4dp"
+                            android:text="OUT2: 0"
+                            android:textAllCaps="false"
+                            android:textColor="@color/blue1"
+                            android:textSize="12sp" />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btn_fixed_gpio_out3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginEnd="4dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/fixed_btn_outline_blue"
+                            android:paddingStart="4dp"
+                            android:paddingEnd="4dp"
+                            android:text="OUT3: 0"
+                            android:textAllCaps="false"
+                            android:textColor="@color/blue1"
+                            android:textSize="12sp" />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btn_fixed_gpio_out4"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/fixed_btn_outline_blue"
+                            android:paddingStart="4dp"
+                            android:paddingEnd="4dp"
+                            android:text="OUT4: 0"
+                            android:textAllCaps="false"
+                            android:textColor="@color/blue1"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/fixed_item_spacing"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btn_fixed_gpio_beep"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:text="@string/fixed_gpio_beep_on"
+                            android:textAllCaps="false"
+                            android:textColor="@color/main_color"
+                            android:textSize="12sp" />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btn_fixed_gpio_blue_led"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:text="@string/fixed_gpio_blue_led_on"
+                            android:textAllCaps="false"
+                            android:textColor="@color/main_color"
+                            android:textSize="12sp" />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btn_fixed_gpio_orange_led"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:text="@string/fixed_gpio_orange_led_on"
+                            android:textAllCaps="false"
+                            android:textColor="@color/main_color"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/fixed_section_spacing"
+                        android:text="@string/fixed_gpio_inputs"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/fixed_item_spacing"
+                        android:orientation="horizontal"
+                        android:weightSum="4">
+
+                        <TextView
+                            android:id="@+id/tv_fixed_gpio_in1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="IN1: ?"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tv_fixed_gpio_in2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="IN2: ?"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tv_fixed_gpio_in3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="IN3: ?"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tv_fixed_gpio_in4"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="IN4: ?"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/fixed_item_spacing"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btn_fixed_gpio_start_monitor"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="6dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/fixed_btn_gray_outline"
+                            android:text="@string/fixed_gpio_start_monitor"
+                            android:textAllCaps="false"
+                            android:textColor="@color/grayslate"
+                            android:textSize="14sp" />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btn_fixed_gpio_stop_monitor"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/fixed_btn_gray_outline"
+                            android:text="@string/fixed_gpio_stop_monitor"
+                            android:textAllCaps="false"
+                            android:textColor="@color/grayslate"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="24dp" />
+        </LinearLayout>
+    </ScrollView>
+</layout>

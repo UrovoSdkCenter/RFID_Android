@@ -1,26 +1,19 @@
 package com.rfid.base;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.os.SystemClock;
-import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckBox;
@@ -42,6 +35,7 @@ import com.rfid.base.bean.ReadData;
 import com.rfid.base.databinding.ActivityInventoryBinding;
 import com.rfid.base.utils.DialogUtils;
 import com.rfid.base.utils.FileImport;
+import com.rfid.base.utils.MaskDataUtils;
 import com.rfid.base.utils.SPUtils;
 import com.rfid.base.utils.ToastUtils;
 import com.rfid.base.utils.Util;
@@ -95,6 +89,7 @@ public class InventoryActivity extends BaseActivity implements OnClickListener, 
     public long beginTime;
     public long CardNumber;
     public static List<String> mlist = new ArrayList<String>();
+    public static List<String> mTidlist = new ArrayList<String>();
     public long lastTime = 0;
     public int lastCount = 0;
     private int isChange = -1;//0 - Not charged, 1 - Charging
@@ -152,18 +147,10 @@ public class InventoryActivity extends BaseActivity implements OnClickListener, 
             ViewHelper.setOnClickListener(this, binding.BtClear, binding.BtImport, binding.BtInventory);
             binding.RgInventory.setOnCheckedChangeListener(new RgInventoryCheckedListener());
 
-            RFIDSDKManager.getInstance().getRfidManager().getModuleType();
+//            RFIDSDKManager.getInstance().getRfidManager().getModuleType();
 
+            updateFwUI();
 
-            if (RFIDSDKManager.getInstance().getRfidManager() != null) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        String fm = RFIDSDKManager.getInstance().getRfidManager().getFirmwareVersion();
-                        binding.tvFm.setText(Util.toVer(fm));
-                    }
-                }, 1000);
-            }
             listenerDeviceModeSwitch();
             binding.LvTags.setAdapter(adapter);
             clearData();
@@ -184,9 +171,25 @@ public class InventoryActivity extends BaseActivity implements OnClickListener, 
 
 //        // true: Displays the signal value ranging from 0 to 100; false: Displays the default value (not within the range of 0 to 100)
 //        RFIDSDKManager.getInstance().getRfidManager().setRssiConvertEnabled(true);
+//        RFIDSDKManager.getInstance().getRfidManager().setAllowMixedSingleMemBankReturn(true);
+
 
     }
 
+    public void updateFwUI(){
+        if (RFIDSDKManager.getInstance().getRfidManager() != null) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    String fm = RFIDSDKManager.getInstance().getRfidManager().getExFWDetails();
+                    if (TextUtils.isEmpty(fm)){
+                        fm = RFIDSDKManager.getInstance().getRfidManager().getFirmwareVersion();
+                    }
+                    binding.tvFm.setText(Util.toVer(fm));
+                }
+            }, 1000);
+        }
+    }
 
     /**
      * 初始化Filter相关控件
@@ -201,6 +204,13 @@ public class InventoryActivity extends BaseActivity implements OnClickListener, 
         // 初始化新增的CheckBox控件
         cbTagFocus = binding.cbTagFocus;
         cbFastId = binding.cbFastId;
+
+        binding.llCb.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ivFilterArrow.performClick();
+            }
+        });
 
         // 箭头图标点击监听
         ivFilterArrow.setOnClickListener(new OnClickListener() {
@@ -257,6 +267,11 @@ public class InventoryActivity extends BaseActivity implements OnClickListener, 
                 } else if (checkedId == binding.rbFilterUser.getId()) {
                     filterType = 3; // USER
                 }
+                if (filterType == 1){
+                    binding.etFilterPtr.setText(32+"");
+                }else {
+                    binding.etFilterPtr.setText(0+"");
+                }
             }
         });
 
@@ -311,7 +326,6 @@ public class InventoryActivity extends BaseActivity implements OnClickListener, 
                 int session = RFIDSDKManager.getInstance().getRfidManager().getInventoryWithSession();
                 if (session == 1) {
                     isTagfocusEnable = true;
-                } else {
                 }
             }
             cbTagFocus.setChecked(isTagfocusEnable);
@@ -394,11 +408,10 @@ public class InventoryActivity extends BaseActivity implements OnClickListener, 
                 return;
             }
             try {
-                int maskAddr = (int) Integer.valueOf(binding.etFilterPtr.getText().toString());
+                int maskAddr =   Integer.valueOf(binding.etFilterPtr.getText().toString());
                 int maskMem = filterType;
-                int maskLen = (int) Integer.valueOf(binding.etFilterLen.getText().toString());
-                int ret = RFIDSDKManager.getInstance().getRfidManager().clearMask();
-                ret = RFIDSDKManager.getInstance().getRfidManager().addMaskByBits(maskMem, maskAddr, maskLen, filterData);
+                int maskLen =   Integer.valueOf(binding.etFilterLen.getText().toString());
+                int ret = MaskDataUtils.addMaskDiffSceneMode(maskMem,maskAddr,maskLen,filterData);
                 if (ret == 0) {
                     String temp = maskMem + "," + maskAddr + "," + maskLen + "," + filterData;
                     Log.d(TAG, "Filter: " + temp);
@@ -435,6 +448,12 @@ public class InventoryActivity extends BaseActivity implements OnClickListener, 
             if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'F')) {
                 validInput.append(c);
             }
+        }
+
+        if(!TextUtils.isEmpty(validInput)){
+            String inputValue = validInput.toString();
+            int length = inputValue.length();
+            binding.etFilterLen.setText(""+length*4);
         }
 
         if (!input.equals(validInput.toString())) {
@@ -563,6 +582,7 @@ public class InventoryActivity extends BaseActivity implements OnClickListener, 
         tagList.clear();
         integerHashMap.clear();
         mlist.clear();
+        mTidlist.clear();
         CardNumber = 0;
         adapter.notifyDataSetChanged();
 
@@ -631,6 +651,9 @@ public class InventoryActivity extends BaseActivity implements OnClickListener, 
 //                binding.LvTags.setAdapter(adapter);
                 binding.tvCount.setText("" + tagList.size());
                 mlist.add(epc);
+                if (!TextUtils.isEmpty(readTag.memId)){
+                    mTidlist.add(readTag.memId);
+                }
                 integerHashMap.put(readTag.epcId, mlist.size() - 1);
                 updateList();
 //                handler.sendEmptyMessage(MSG_UPDATE_TV);
@@ -639,6 +662,7 @@ public class InventoryActivity extends BaseActivity implements OnClickListener, 
                 int tagcount = readData1.count + 1;
                 readData1.count = tagcount;
                 readData1.rssidBm = readTag.rssidBm;
+                readData1.memId = readTag.memId;
                 tagList.set(index, readData1);
                 updateList();
             }
@@ -667,7 +691,8 @@ public class InventoryActivity extends BaseActivity implements OnClickListener, 
         isOnResume = true;
         isStopThread = false;
         if (RFIDSDKManager.getInstance().getRfidManager() != null) {
-            if (RFIDSDKManager.getInstance().getRfidManager().getReaderDeviceType() != ReaderDeviceType.INTEGRATED) {
+            int readerDeviceType = RFIDSDKManager.getInstance().getRfidManager().getReaderDeviceType();
+            if ( readerDeviceType== ReaderDeviceType.BLE_DEVICE || readerDeviceType== ReaderDeviceType.PERIPHERAL_UART) {
                 isVisableSettingTab(true);
                 listenerGripStatus();
             } else {
@@ -850,25 +875,31 @@ public class InventoryActivity extends BaseActivity implements OnClickListener, 
             } else if (arg0 == binding.BtClear) {
                 clearData();
             } else if (arg0 == binding.BtImport) {
-                if (tagList.size() == 0) {
-                    Toast.makeText(getApplicationContext(), getString(R.string.msgNodata), Toast.LENGTH_SHORT).show();
+                if (!checkFilePermiss(InventoryActivity.this)){
                     return;
                 }
-                if (!checkFilePermiss()){
-                    return;
-                }
-                boolean re = FileImport.daochu("", tagList);
-                if (re) {
-                    Toast.makeText(getApplicationContext(), getString(R.string.msgImportsuc), Toast.LENGTH_SHORT).show();
-                    //clearData();
-                } else {
-                    Toast.makeText(getApplicationContext(), getString(R.string.msgImportfailed), Toast.LENGTH_SHORT).show();
-                }
+                importFile();
             }
         } catch (Exception e) {
             stopInventory();
         }
     }
+
+    protected void importFile(){
+
+        if (tagList.size() == 0) {
+            Toast.makeText(getApplicationContext(), getString(R.string.msgNodata), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        boolean re = FileImport.daochu("", tagList);
+        if (re) {
+            Toast.makeText(getApplicationContext(), getString(R.string.msgImportsuc), Toast.LENGTH_SHORT).show();
+            //clearData();
+        } else {
+            Toast.makeText(getApplicationContext(), getString(R.string.msgImportfailed), Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     private void readTag() {
         epc = "";
@@ -927,12 +958,11 @@ public class InventoryActivity extends BaseActivity implements OnClickListener, 
     }
 
     private void stopInventory() {
+        delayStopInventoryUI(1000);
         RFIDSDKManager.getInstance().getRfidManager().stopInventory();
-        // View 可能尚未 attach（Activity 刚创建即被切走），需守卫判断
         if (binding != null && binding.tvTips.isAttachedToWindow()) {
             binding.tvTips.setText("");
         }
-        delayStopInventoryUI(1000);
     }
 
 

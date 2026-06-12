@@ -1,9 +1,14 @@
 package com.rfid.base.utils;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.text.TextUtils;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.core.content.pm.PackageInfoCompat;
 
 import com.ubx.usdk.RFIDSDKManager;
 import com.ubx.usdk.bean.ExVersionInfo;
@@ -19,7 +24,10 @@ public class Util {
         Toast.makeText(context, resRes, Toast.LENGTH_LONG).show();
         return false;
     }
-
+    public static boolean isTvEmpty(TextView textView) {
+        String str = textView.getText().toString();
+        return str == null || str.equals("");
+    }
     public static boolean isEtEmpty(EditText editText) {
         String str = editText.getText().toString();
         return str == null || str.equals("");
@@ -123,7 +131,7 @@ public class Util {
             String ModuleInfo = "";
             double ex10Fw = getEx10Ver();
             if (ex10Fw!=-1){
-                version =  version + " [" + ex10Fw + "]";
+                version =  version + "\n[" + ex10Fw + "]";
             }
             if (!TextUtils.isEmpty(Type)) {
                 ModuleInfo = version + " (" + Type + ")";
@@ -136,9 +144,9 @@ public class Util {
     }
     private static double ex10Ver = -1;
     public static double getEx10Ver() {
-        if (ex10Ver != -1){
-            return ex10Ver;
-        }
+//        if (ex10Ver != -1){
+//            return ex10Ver;
+//        }
         ExVersionInfo exVersionInfo = RFIDSDKManager.getInstance().getRfidManager().getEx10Version();
         if (exVersionInfo!=null && exVersionInfo.code == 0){
             try {
@@ -149,45 +157,44 @@ public class Util {
         }
         return ex10Ver;
     }
-//    public static String toVer(String version) {
-//        if (!TextUtils.isEmpty(version)) {
-//            int ReaderCode = -1;
-//            if (RFIDSDKManager.getInstance().getRfidManager() != null) {
-//                ReaderCode = RFIDSDKManager.getInstance().getRfidManager().getReaderType();
-//            }
-//            String ModuleInfo = version + " (" + Integer.toHexString(ReaderCode) + ")";
-//            return ModuleInfo;
-//        }
-//        return "";
-//    }
 
-    public static void initInventoryMode(boolean isCheck){
-        if (isCheck) {
-            if (RFIDSDKManager.getInstance().getRfidManager().getReaderDeviceType() == ReaderDeviceType.INTEGRATED) {
-                boolean isFirst = SPUtils.getBoolean(SPUtils.KEY_INTEGRATED_INVMODE, true);
-                if (isFirst) {
-                    int ret = RFIDSDKManager.getInstance().getRfidManager().setInventorySceneMode(InventorySceneMode.CUSTOM_MODE);
-                    if (ret == RfidErrorConstants.SUCCESS) {
-                        SPUtils.putBoolean(SPUtils.KEY_INTEGRATED_INVMODE, false);
-                    }
-                }
-            } else {
-                boolean isFirst = SPUtils.getBoolean(SPUtils.KEY_NO_INTEGRATED_INVMODE, true);
-                if (isFirst) {
-                    int ret = RFIDSDKManager.getInstance().getRfidManager().setInventorySceneMode(InventorySceneMode.CUSTOM_MODE);
-                    if (ret == RfidErrorConstants.SUCCESS) {
-                        SPUtils.putBoolean(SPUtils.KEY_NO_INTEGRATED_INVMODE, false);
-                    }
-                }
-            }
-        }else {
-            boolean isFirst = SPUtils.getBoolean(SPUtils.KEY_NO_INTEGRATED_INVMODE, true);
-            if (isFirst) {
-                int ret = RFIDSDKManager.getInstance().getRfidManager().setInventorySceneMode(InventorySceneMode.CUSTOM_MODE);
-                if (ret == RfidErrorConstants.SUCCESS) {
-                    SPUtils.putBoolean(SPUtils.KEY_NO_INTEGRATED_INVMODE, false);
-                }
-            }
+    /**
+     * 获取当前应用的 versionName (例如: "1.0.0")
+     */
+    public static String getVersionName(Context context) {
+        if (context == null) return "";
+
+        try {
+            PackageManager packageManager = context.getPackageManager();
+            // 获取当前应用的包名
+            String packageName = context.getPackageName();
+
+            // 获取 PackageInfo，0 表示获取基本信息
+            PackageInfo packageInfo = packageManager.getPackageInfo(packageName, 0);
+
+            return packageInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    /**
+     * 获取当前应用的 versionCode (兼容 Android 12+ 的 Long 类型)
+     */
+    public static long getVersionCode(Context context) {
+        if (context == null) return 0;
+
+        try {
+            PackageManager packageManager = context.getPackageManager();
+            String packageName = context.getPackageName();
+            PackageInfo packageInfo = packageManager.getPackageInfo(packageName, 0);
+
+            // 使用 PackageInfoCompat 自动处理 Android 12+ (API 31+) 的 Long 类型变更
+            return PackageInfoCompat.getLongVersionCode(packageInfo);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return 0;
         }
     }
 

@@ -1,6 +1,5 @@
 package com.rfid.base;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,15 +7,10 @@ import android.os.Looper;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Toast;
 
-import androidx.core.view.ViewCompat;
 
 import com.rfid.base.databinding.ActivitySplashBinding;
-import com.rfid.base.utils.Util;
 import com.rfid.base.utils.ViewHelper;
 import com.ubx.usdk.RFIDSDKManager;
 import com.ubx.usdk.bean.enums.ReaderDeviceType;
@@ -24,11 +18,12 @@ import com.ubx.usdk.listener.InitListener;
 
 public class SplashBaseActivity extends BaseActivity {
 
-    private static String TAG = SplashBaseActivity.class.getSimpleName();
+    protected static String TAG = SplashBaseActivity.class.getSimpleName();
     
     // 使用 DataBinding
     private ActivitySplashBinding binding;
     private boolean isPIN = false;
+    protected int connFailCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +54,10 @@ public class SplashBaseActivity extends BaseActivity {
 
         initRfid();
 
-        if (RFIDSDKManager.getInstance().getRfidManager() != null && RFIDSDKManager.getInstance().getRfidManager().isConnected()) {
-            toMain();
-            finish();
-        }
+//        if (RFIDSDKManager.getInstance().getRfidManager() != null && RFIDSDKManager.getInstance().getRfidManager().isConnected()) {
+//            toMain();
+//            finish();
+//        }
     }
 
     public void initRfid() {
@@ -75,13 +70,14 @@ public class SplashBaseActivity extends BaseActivity {
                     public void run() {
 
                         if (status) {
+                            connFailCount = 0;
                             int deviceType = RFIDSDKManager.getInstance().getRfidManager().getReaderDeviceType();
                             Log.i(TAG, "initRfid()  deviceType : " + deviceType+"  isPIN : "+isPIN);
                             if (isPIN && deviceType != ReaderDeviceType.PERIPHERAL_UART){
                                 initFail( getString(R.string.pin_check_fail));
                                 RFIDSDKManager.getInstance().release();
                                 return;
-                            }else  if (!isPIN && deviceType != ReaderDeviceType.INTEGRATED){
+                            }else  if (!isPIN && (deviceType != ReaderDeviceType.INTEGRATED && deviceType != ReaderDeviceType.FIXED_INTEGRATED_DEVICE )){
                                 initFail( getString(R.string.please_disconnect_pin_device));
                                 RFIDSDKManager.getInstance().release();
                                 return;
@@ -89,6 +85,7 @@ public class SplashBaseActivity extends BaseActivity {
                             toMain();
                             finish();
                         } else {
+                            connFailCount ++;
                             initFail(getString(R.string.openport_failed));
                         }
 
@@ -100,7 +97,7 @@ public class SplashBaseActivity extends BaseActivity {
         });
     }
 
-    private void initFail(String errMsg){
+    public void initFail(String errMsg){
         binding.textviewShow.setVisibility(View.VISIBLE);
         binding.textviewShow.setText(errMsg);
         binding.textviewShow.setTextColor(getResources().getColor(R.color.red));

@@ -632,12 +632,24 @@
                         android:textSize="14sp"
                         android:gravity="end"
                         android:layout_marginEnd="8dp" />
-                    <Spinner
+                    <TextView
                         android:id="@+id/inventory_mode_spinner"
                         android:layout_width="0dp"
                         android:layout_height="32dp"
                         android:layout_weight="1"
-                        android:layout_marginEnd="4dp" />
+                        android:layout_marginEnd="4dp"
+                        android:background="@drawable/bg_spinner"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="4dp"
+                        android:textSize="13sp"
+                        android:textColor="#333333"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:drawableEnd="@drawable/ic_arrow_down"
+                        android:drawablePadding="2dp" />
                     <Button
                         android:id="@+id/bt_get_energy_mode"
                         android:layout_width="50dp"
@@ -803,6 +815,37 @@
                         android:layout_height="wrap_content" />
                 </LinearLayout>
 
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="2dp"
+                    android:background="@color/lightblue"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp">
+
+                    <TextView
+                        android:id="@+id/tv_log_desc"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"
+                        android:text="@string/enable_log"
+                        android:textSize="14sp"
+                        android:textColor="@color/main_color"
+                        android:textStyle="bold"
+                        android:ellipsize="end"
+                        android:maxLines="2" />
+
+                    <Switch
+                        android:id="@+id/switch_log"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
 
             </LinearLayout>
 

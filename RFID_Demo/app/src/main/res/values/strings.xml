@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Rfiddemo</string>
+    <string name="fw_update"> RFID Upgrade </string>
+
+    <string name="choice_bin"> Please select the firmware first </string>
+
+    <string name="update_error"> upgrade error </string>
+    <string name="rfid_os"> \nFirmware version: </string>
+    <string name="ble_os"> \nBluetooth version: </string>
+    <string name="chips_os"> Chip version: </string>
+    <string name="mcu_os">Sled version: </string>
+    <string name="update_progress"> Upgrade progress: </string>
+    <string name="update_ing">Upgrading....</string>
+    <string name="update_success"> Upgrade successful </string>
+    <string name="update_fail"> Upgrade failed </string>
+    <string name="updateing"> is being upgraded... </string>
+    <string name="in_update_mode_fail"> Failed to enter upgrade mode </string>
+    <string name="in_update_mode_suc"> successfully enter upgrade mode </string>
+    <string name="read_file_error"> File reading error </string>
+    <string name="no_update"> No need to upgrade </string>
+    <string name="no_support_update"> upgrade is not supported </string>
+    <string name="intg_update"> All-in-one machine upgrade </string>
+    <string name="hand_update"> Sled firmware </string>
+    <string name="low_hand_os"> Downgraded Sled firmware </string>
+    <string name="up_hand_os"> Start Upgrade </string>
+    <string name="rfid_mode">RFID Firmware </string>
+    <string name="low_rfid_os"> Downgraded RFID module </string>
+    <string name="up_rfid_os"> Upgrade RFID module </string>
+    <string name="rfid_chips">RFID Chip </string>
+    <string name="ble_firmware">Bluetooth Firmware </string>
+    <string name="low_rfid_chips"> Downgraded RFID chip </string>
+    <string name="up_rfid_chips"> Upgrade RFID chip </string>
+    <string name="ble_hand"> Bluetooth Sled </string>
+    <string name="update_status">Upgrade Status</string>
+    <string name="dev_ver">Current Version</string>
+    <string name="select_device_type">Select Device Type</string>
+    <string name="current_firm"> current version </string>
+    <string name="file_path"> file path </string>
+    <string name="no_choice_file"> Unselected file </string>
+    <string name="button_choice_file_zip_bin"> Select file (.zip/.bin)</string>
+    <string name="main_system_firmware"> Main System Firmware </string>
+    <string name="no_found_to_firmeare_file"> Corresponding firmware file not found </string>
+    <string name="no_choice_to_firmeare_file"> No corresponding firmware file is selected </string>
+    <string name="the_file_selection_was_successful">The file selection was successful.</string>
+    <string name="please_install_filemanager"> Please install filemanager </string>
+    <string name="choice_bin_file"> Select the firmware file </string>
+    <string name="please_choice_zip_bin"> please select.zip or.bin file </string>
+    <string name="please_choice_zip"> please select.zip file </string>
+    <string name="not_get_file_path"> the file path cannot be obtained </string>
+    <string name="doing_zip_up_file"> the file is being decompressed... </string>
+    <string name="zip_up_file_empty">ZIP file decompression failed or empty </string>
+    <string name="zip_un_error"> Decompression error: </string>
+    <string name="uart_device">Wired Connection</string>
+    <string name="bluetooth_device">Wireless Connection</string>
+    <string name="loading">Loading...</string>
+    <string name="notice">Notice!</string>
+    <string name="this_application_requires_your_authorization_to_allow_file_access">"This application requires your authorization to allow file access! "</string>
+    <string name="ok">OK</string>
+    <string name="please_open_ble_permission">Please enable the Bluetooth permission first</string>
+    <string name="str_rfid_chips">(RFID Chip)</string>
+    <string name="str_rfid_mode">(RFID Module)</string>
+    <string name="check_update_ding"> Checking for updates... </string>
+    <string name="no_update_was_detected">No update was detected.</string>
+    <string name="check_rfid_os"> Check Update </string>
+</resources>

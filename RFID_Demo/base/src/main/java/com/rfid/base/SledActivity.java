@@ -227,7 +227,10 @@ public class SledActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void getVersionRfid() {
-		String verRfid = RFIDSDKManager.getInstance().getRfidManager().getFirmwareVersion();
+		String verRfid = RFIDSDKManager.getInstance().getRfidManager().getExFWDetails();
+		if (TextUtils.isEmpty(verRfid)){
+			verRfid = RFIDSDKManager.getInstance().getRfidManager().getFirmwareVersion();
+		}
 		if (!TextUtils.isEmpty(verRfid)) {
 			binding.txtVerRfid.setText(verRfid);
 			ToastUtils.show(getString(R.string.get_success));
@@ -277,6 +280,10 @@ public class SledActivity extends BaseActivity implements OnClickListener {
 					getVersionRfidAsync();
 					loadPowerOffTime();
 					loadSleepTime();
+
+//					int health = GripDeviceManager.getInstance().getBatteryHealth();
+//					int ccc = GripDeviceManager.getInstance().getBatteryCycleCount();
+//					Log.d(TAG, "run: health : "+health+"  ccc : "+ccc);//health : 8796  ccc : 3
 
 					if (RFIDSDKManager.getInstance().getRfidManager().getReaderDeviceType() == ReaderDeviceType.BLE_DEVICE){
 						// 4. 加载蜂鸣器音量设置(Load the volume setting for the buzzer)
@@ -452,12 +459,16 @@ public class SledActivity extends BaseActivity implements OnClickListener {
 
 	private void getVersionRfidAsync() {
 		try {
-			String verRfid = RFIDSDKManager.getInstance().getRfidManager().getFirmwareVersion();
+			String verRfid = RFIDSDKManager.getInstance().getRfidManager().getExFWDetails();
+			if (TextUtils.isEmpty(verRfid)){
+				 verRfid = RFIDSDKManager.getInstance().getRfidManager().getFirmwareVersion();
+			}
+			String finalVerRfid = verRfid;
 			mainHandler.post(new Runnable() {
 				@Override
 				public void run() {
-					if (!TextUtils.isEmpty(verRfid)) {
-						binding.txtVerRfid.setText(verRfid);
+					if (!TextUtils.isEmpty(finalVerRfid)) {
+						binding.txtVerRfid.setText(finalVerRfid);
 					} else {
 						binding.txtVerRfid.setText(getResources().getString(R.string.get_failed));
 					}
@@ -480,7 +491,7 @@ public class SledActivity extends BaseActivity implements OnClickListener {
 					@Override
 					public void run() {
 						try {
-							binding.sleepSpinner.setSelection((time / 10) - 1);
+							binding.sleepSpinner.setSelection(time / 10);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -510,7 +521,7 @@ public class SledActivity extends BaseActivity implements OnClickListener {
 					@Override
 					public void run() {
 						try {
-							binding.powerOffSpinner.setSelection((time / 10) - 1);
+							binding.powerOffSpinner.setSelection(time / 10);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}

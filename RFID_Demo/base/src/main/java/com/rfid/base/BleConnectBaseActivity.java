@@ -55,6 +55,7 @@ import java.util.List;
 public class BleConnectBaseActivity extends BaseActivity {
     private String TAG = BleConnectBaseActivity.class.getSimpleName();
     private String mUuid = "6e400001-b5a3-f393-e0a9-e50e24dcca9e";
+    private String mUuidDFU = "0000fe59-0000-1000-8000-00805f9b34fb";
     public static final int REQUEST_PERMISSION_LOCATION = 2;
     public static final int REQUEST_PERMISSION_WRITE = 3;
     public static final int REQUEST_GPS = 4;
@@ -63,7 +64,7 @@ public class BleConnectBaseActivity extends BaseActivity {
     private ActivityBleBinding binding;
 
     private ScanAdapter adapter;
-    private List<BluetoothDevice> bleRssiDevices;
+    private List<ScanResult> bleRssiDevices;
     private boolean isFilter = false;
 
     private BluetoothAdapter bluetoothAdapter;
@@ -172,8 +173,8 @@ public class BleConnectBaseActivity extends BaseActivity {
                 stopScan();
 
                 try {
-                    BluetoothDevice device = bleRssiDevices.get(position);
-                    toDataAty(device.getAddress());
+                    ScanResult scanResult = bleRssiDevices.get(position);
+                    toScanResult(scanResult);
                 } catch (Exception e) {
                     e.printStackTrace();
                     startScanning();
@@ -253,7 +254,7 @@ public class BleConnectBaseActivity extends BaseActivity {
 //                    , Manifest.permission.READ_EXTERNAL_STORAGE
 //                    , Manifest.permission.WRITE_EXTERNAL_STORAGE
                         , Manifest.permission.BLUETOOTH_SCAN
-                        , Manifest.permission.BLUETOOTH_ADMIN
+//                        , Manifest.permission.BLUETOOTH_ADMIN
                         , Manifest.permission.BLUETOOTH_ADVERTISE
                         , Manifest.permission.BLUETOOTH_CONNECT
                         , Manifest.permission.CAMERA};
@@ -392,7 +393,7 @@ public class BleConnectBaseActivity extends BaseActivity {
                         Manifest.permission.ACCESS_COARSE_LOCATION
                         , Manifest.permission.ACCESS_FINE_LOCATION
                         , Manifest.permission.BLUETOOTH_SCAN
-                        , Manifest.permission.BLUETOOTH_ADMIN
+//                        , Manifest.permission.BLUETOOTH_ADMIN
                         , Manifest.permission.BLUETOOTH_ADVERTISE
                         , Manifest.permission.BLUETOOTH_CONNECT};
             }else {
@@ -435,7 +436,7 @@ public class BleConnectBaseActivity extends BaseActivity {
             if (parcelUuids!=null){
                 for (int i = 0; i < parcelUuids.size(); i++) {
                     String uuid = parcelUuids.get(i).getUuid().toString();
-                    if (uuid.equals(mUuid)){
+                    if (uuid.equals(mUuid) || uuid.equals(mUuidDFU)){
                         isHave = true;
                     }
                 }
@@ -448,7 +449,7 @@ public class BleConnectBaseActivity extends BaseActivity {
                 if (!TextUtils.isEmpty(device.getName())) {
                     if (!hashMap.containsKey(device.getAddress())) {
                         hashMap.put(device.getAddress(), device.getName());
-                        bleRssiDevices.add(device);
+                        bleRssiDevices.add(result);
                         adapter.notifyDataSetChanged();
                     }
                 }
@@ -566,12 +567,42 @@ public class BleConnectBaseActivity extends BaseActivity {
         Log.d(TAG, "setIsShow :   " + isShow);
     }
 
+    private void toScanResult(ScanResult scanResult){
+        if (scanResult != null){
+            Log.d(TAG, "device: "+scanResult.toString());
+            List<ParcelUuid> parcelUuids = scanResult.getScanRecord().getServiceUuids();
+            if (parcelUuids!=null){
+                for (int i = 0; i < parcelUuids.size(); i++) {
+                    String uuid = parcelUuids.get(i).getUuid().toString();
+//                    Log.v(TAG, "Found device:   uuid " + uuid);
+                    if (uuid.equals(mUuidDFU)){
+//                        Intent intent  = new Intent().setClass(BleConnectActivity.this, RFIDUpdateActivity.class);
+//                        intent.putExtra("UPG",true);
+//                        intent.putExtra("ble_force",true);
+//                        intent.putExtra("mac", scanResult.getDevice().getAddress());
+//                        startActivity(intent);
+                        startBleDfu(scanResult.getDevice().getAddress());
+                        return;
+                    }
+                }
+            }
+        }else {
+            Log.d(TAG, "toDataAty:  device is null  "  );
+            return;
+        }
+        toDataAty(scanResult.getDevice().getAddress());
+    }
+
+    protected void startBleDfu(String dfuMac){
+
+    }
     /**
      * 跳转界面 to Activity
      * Navigation interface
      * @param mac BLE MAC address
      */
-    private void toDataAty(String mac) {
+    private void toDataAty(String mac  ) {
+        stopScan();
 
         Log.i(TAG, "toDataAty:  mac : " + mac);
         LoadingDialogUtils.getInstance().show(BleConnectBaseActivity.this, R.string.sled_connecting);
@@ -580,23 +611,30 @@ public class BleConnectBaseActivity extends BaseActivity {
             public void onStatus(boolean status) {
                 Log.i(TAG, "onStatus:  isShow : "+isShow+"    status : " + status);
                 LoadingDialogUtils.getInstance().dismiss();
+
 //                if (isShow) {
-                    if (status) {
+                if (status) {
 //                    if (isShow) {
-                        toMain();
-                        Log.i(TAG, "onStatus: to Activity");
-                        finish();
+                    toMain();
+                    Log.i(TAG, "onStatus: to Activity");
+                    finish();
 //                    }
-                    } else {
-                        ToastUtils.show(getString(R.string.bluetooth_connection_is_abnormal_abnormal_status_code) + "  " + status);
-                    }
+                } else {
+                    ToastUtils.show(getString(R.string.bluetooth_connection_is_abnormal_abnormal_status_code) + "  " + status);
+                }
 //                }
             }
         });
+
+
+    }
+    protected void toMain(){
+
+
+
     }
 
-    protected void toMain(){
-    }
+
 
 
 }

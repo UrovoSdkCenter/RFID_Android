@@ -18,7 +18,7 @@ public class DeviceManagerUtils {
             Constructor<?> constructor = deviceManagerClass.getConstructor();
              deviceManager = constructor.newInstance();
 
-        } catch (Exception e) {
+        } catch (Throwable e) {
             Log.e(TAG, "Exception stub.");
         }
     }
@@ -29,7 +29,7 @@ public class DeviceManagerUtils {
             Method getDeviceIdMethod = deviceManagerClass.getMethod("getDeviceId");
             String SN = (String) getDeviceIdMethod.invoke(deviceManager);
             return SN;
-        } catch (Exception e) {
+        } catch (Throwable e) {
             Log.e(TAG, "Failed to getDeviceId ");
             return "";
         }
@@ -43,7 +43,7 @@ public class DeviceManagerUtils {
             String property = (String) getSettingPropertyMethod.invoke(
                     deviceManager, key);
             return property;
-        } catch (Exception e) {
+        } catch (Throwable e) {
             Log.e(TAG, "Failed to get property: ");
             return "";
         }

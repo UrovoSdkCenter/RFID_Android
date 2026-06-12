@@ -4,13 +4,13 @@
     android:layout_height="match_parent"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:padding="2dp" >
+    android:padding="1dp" >
 
     <TextView
         android:id="@+id/TvTagUii"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:layout_weight="5"
+        android:layout_weight="5.3"
         android:paddingTop="3dp"
         android:paddingBottom="2dp" />
 
@@ -33,7 +33,7 @@
         android:id="@+id/TvTagRssi"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="0.7"
         android:paddingTop="3dp"
         android:gravity="center"
         android:paddingBottom="2dp" />

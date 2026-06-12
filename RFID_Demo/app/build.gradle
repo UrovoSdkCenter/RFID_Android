@@ -1,29 +1,37 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 34
+    compileSdk 36
+    namespace 'com.demo.rfid'
 
     defaultConfig {
-        applicationId "com.ubx.rfid"
-        minSdkVersion 26
-        targetSdkVersion 34
+        applicationId "com.demo.rfid"
+        minSdk 26
+        targetSdk 34
         versionCode getAppVersion("code","")
         versionName getAppVersion("name","")
 
         missingDimensionStrategy 'rfid',   'nor','lite'
     }
 
-    
+    signingConfigs {
+        sign {
+            storeFile file('E:/keystore/urovokey.keystore')
+            storePassword 'urovo123456'
+            keyPassword 'urovo123456'
+            keyAlias = 'urovo'
+        }
+    }
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-           
+            signingConfig signingConfigs.sign
         }
         debug {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            
+            signingConfig signingConfigs.sign
         }
     }
     lintOptions {
@@ -36,7 +44,7 @@ android {
     }
     applicationVariants.all { variant ->
         variant.outputs.all {
-            def fileName = "RFIDDemo_v${defaultConfig.versionName}.apk"//_${buildType.name} --> debug 或 release
+            def fileName = "RfidDemo_v${defaultConfig.versionName}.apk"//_${buildType.name} --> debug 或 release
             outputFileName = fileName
         }
     }
@@ -52,11 +60,14 @@ repositories {
 
 dependencies {
     implementation project(path:':base'  )
+
+    implementation 'com.google.code.gson:gson:2.11.0'
+    implementation 'no.nordicsemi.android:dfu:2.9.0'
 }
 
 
 static def getAppVersion(type,vendor) {
-    int versionCode = 35
+    int versionCode = 1
     if (type == "code"){
         return versionCode
     } else {
